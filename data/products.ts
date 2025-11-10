@@ -4,6 +4,7 @@ export const products: Product[] = [
   {
     id: 1,
     title: "Premium Wireless Headphones",
+    slug: "premium-wireless-headphones",
     price: "$299",
     image: "https://picsum.photos/seed/headphones1/800/600",
     description: "Crystal-clear sound with active noise cancellation.",
@@ -11,6 +12,7 @@ export const products: Product[] = [
   {
     id: 2,
     title: "Smart Fitness Watch",
+    slug: "smart-fitness-watch",
     price: "$199",
     image: "https://picsum.photos/seed/watch2/800/600",
     description: "Track your health and stay connected on the go.",
@@ -18,6 +20,7 @@ export const products: Product[] = [
   {
     id: 3,
     title: "Designer Sunglasses",
+    slug: "designer-sunglasses",
     price: "$149",
     image: "https://picsum.photos/seed/sunglasses3/800/600",
     description: "UV protection meets timeless style.",
@@ -25,6 +28,7 @@ export const products: Product[] = [
   {
     id: 4,
     title: "Leather Messenger Bag",
+    slug: "leather-messenger-bag",
     price: "$179",
     image: "https://picsum.photos/seed/bag4/800/600",
     description: "Handcrafted Italian leather for professionals.",
@@ -32,6 +36,7 @@ export const products: Product[] = [
   {
     id: 5,
     title: "Portable Power Bank",
+    slug: "portable-power-bank",
     price: "$49",
     image: "https://picsum.photos/seed/powerbank5/800/600",
     description: "20,000mAh capacity for all-day charging.",
@@ -39,6 +44,7 @@ export const products: Product[] = [
   {
     id: 6,
     title: "Minimalist Desk Lamp",
+    slug: "minimalist-desk-lamp",
     price: "$89",
     image: "https://picsum.photos/seed/lamp6/800/600",
     description: "Adjustable LED lighting for your workspace.",
@@ -46,6 +52,7 @@ export const products: Product[] = [
   {
     id: 7,
     title: "Ceramic Coffee Mug",
+    slug: "ceramic-coffee-mug",
     price: "$24",
     image: "https://picsum.photos/seed/mug7/800/600",
     description: "Handcrafted artisan mug for your morning brew.",
@@ -53,6 +60,7 @@ export const products: Product[] = [
   {
     id: 8,
     title: "Wireless Keyboard",
+    slug: "wireless-keyboard",
     price: "$129",
     image: "https://picsum.photos/seed/keyboard8/800/600",
     description: "Mechanical switches with RGB backlighting.",
