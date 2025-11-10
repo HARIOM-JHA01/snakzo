@@ -1,81 +1,81 @@
-import Image from "next/image";
-import Navbar from "@/components/navbar";
-import Newsletter from "@/components/newsletter";
-import Footer from "@/components/footer";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Card, CardContent } from "@/components/ui/card";
+import Image from 'next/image';
+import Navbar from '@/components/navbar';
+import Newsletter from '@/components/newsletter';
+import Footer from '@/components/footer';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Card, CardContent } from '@/components/ui/card';
 
 export default function CollectionsPage() {
   const collections = [
     {
       id: 1,
-      name: "Summer Essentials",
-      description: "Beat the heat with our curated summer collection",
-      image: "https://picsum.photos/seed/summer/800/600",
+      name: 'Summer Essentials',
+      description: 'Beat the heat with our curated summer collection',
+      image: 'https://picsum.photos/seed/summer/800/600',
       itemCount: 24,
-      gradient: "from-orange-500 to-pink-500",
+      gradient: 'from-orange-500 to-pink-500',
     },
     {
       id: 2,
-      name: "Tech Innovations",
-      description: "Latest gadgets and cutting-edge technology",
-      image: "https://picsum.photos/seed/tech/800/600",
+      name: 'Tech Innovations',
+      description: 'Latest gadgets and cutting-edge technology',
+      image: 'https://picsum.photos/seed/tech/800/600',
       itemCount: 18,
-      gradient: "from-blue-500 to-cyan-500",
+      gradient: 'from-blue-500 to-cyan-500',
     },
     {
       id: 3,
-      name: "Urban Style",
-      description: "Contemporary fashion for modern living",
-      image: "https://picsum.photos/seed/urban/800/600",
+      name: 'Urban Style',
+      description: 'Contemporary fashion for modern living',
+      image: 'https://picsum.photos/seed/urban/800/600',
       itemCount: 32,
-      gradient: "from-purple-500 to-pink-500",
+      gradient: 'from-purple-500 to-pink-500',
     },
     {
       id: 4,
-      name: "Workspace Essentials",
-      description: "Productivity tools for your perfect setup",
-      image: "https://picsum.photos/seed/workspace/800/600",
+      name: 'Workspace Essentials',
+      description: 'Productivity tools for your perfect setup',
+      image: 'https://picsum.photos/seed/workspace/800/600',
       itemCount: 21,
-      gradient: "from-green-500 to-teal-500",
+      gradient: 'from-green-500 to-teal-500',
     },
     {
       id: 5,
-      name: "Fitness & Wellness",
-      description: "Stay healthy and active with our selection",
-      image: "https://picsum.photos/seed/fitness/800/600",
+      name: 'Fitness & Wellness',
+      description: 'Stay healthy and active with our selection',
+      image: 'https://picsum.photos/seed/fitness/800/600',
       itemCount: 15,
-      gradient: "from-red-500 to-orange-500",
+      gradient: 'from-red-500 to-orange-500',
     },
     {
       id: 6,
-      name: "Luxury Living",
-      description: "Premium products for sophisticated tastes",
-      image: "https://picsum.photos/seed/luxury/800/600",
+      name: 'Luxury Living',
+      description: 'Premium products for sophisticated tastes',
+      image: 'https://picsum.photos/seed/luxury/800/600',
       itemCount: 27,
-      gradient: "from-indigo-500 to-purple-500",
+      gradient: 'from-indigo-500 to-purple-500',
     },
   ];
 
   const featured = [
     {
-      title: "New Arrivals",
-      subtitle: "Fresh picks just for you",
-      image: "https://picsum.photos/seed/newarrivals/600/400",
-      icon: "✨",
+      title: 'New Arrivals',
+      subtitle: 'Fresh picks just for you',
+      image: 'https://picsum.photos/seed/newarrivals/600/400',
+      icon: '✨',
     },
     {
-      title: "Best Sellers",
-      subtitle: "Customer favorites",
-      image: "https://picsum.photos/seed/bestsellers/600/400",
-      icon: "🔥",
+      title: 'Best Sellers',
+      subtitle: 'Customer favorites',
+      image: 'https://picsum.photos/seed/bestsellers/600/400',
+      icon: '🔥',
     },
     {
-      title: "Limited Edition",
-      subtitle: "Exclusive releases",
-      image: "https://picsum.photos/seed/limited/600/400",
-      icon: "💎",
+      title: 'Limited Edition',
+      subtitle: 'Exclusive releases',
+      image: 'https://picsum.photos/seed/limited/600/400',
+      icon: '💎',
     },
   ];
 
@@ -83,18 +83,18 @@ export default function CollectionsPage() {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      <section className="relative overflow-hidden bg-gradient-to-br from-purple-50 via-pink-50 to-rose-50 dark:from-purple-950 dark:via-pink-950 dark:to-rose-950 py-24">
+      <section className="relative overflow-hidden bg-linear-to-br from-purple-50 via-pink-50 to-rose-50 dark:from-purple-950 dark:via-pink-950 dark:to-rose-950 py-24">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiM2MzY2ZjEiIGZpbGwtb3BhY2l0eT0iMC4wNSI+PHBhdGggZD0iTTM2IDE2YzAtNi42MjcgNS4zNzMtMTIgMTItMTJzMTIgNS4zNzMgMTIgMTItNS4zNzMgMTItMTIgMTItMTItNS4zNzMtMTItMTJ6Ii8+PC9nPjwvZz48L3N2Zz4=')] opacity-40" />
 
         <div className="mx-auto max-w-7xl px-6 lg:px-8 relative z-10">
           <div className="text-center max-w-3xl mx-auto">
-            <Badge className="mb-6 animate-fade-up bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0">
+            <Badge className="mb-6 animate-fade-up bg-linear-to-r from-purple-500 to-pink-500 text-white border-0">
               🎨 Curated Collections
             </Badge>
             <h1 className="text-5xl font-black leading-tight tracking-tight sm:text-6xl lg:text-7xl animate-slide-in-left">
-              <span className="bg-gradient-to-r from-purple-600 via-pink-600 to-rose-600 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-purple-600 via-pink-600 to-rose-600 bg-clip-text text-transparent">
                 Explore
-              </span>{" "}
+              </span>{' '}
               Our Collections
             </h1>
             <p className="mt-6 text-lg text-muted-foreground animate-slide-in-right delay-100">
@@ -124,7 +124,7 @@ export default function CollectionsPage() {
                       className="object-cover group-hover:scale-110 transition-transform duration-700"
                       sizes="(max-width: 768px) 100vw, 33vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/40 to-transparent" />
                     <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
                       <div className="text-3xl mb-2">{item.icon}</div>
                       <h3 className="text-xl font-bold mb-1">{item.title}</h3>
@@ -151,7 +151,7 @@ export default function CollectionsPage() {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <CardContent className="p-0">
-                  <div className="relative aspect-[4/3] overflow-hidden">
+                  <div className="relative aspect-4/3 overflow-hidden">
                     <Image
                       src={collection.image}
                       alt={collection.name}
@@ -159,15 +159,15 @@ export default function CollectionsPage() {
                       className="object-cover group-hover:scale-110 transition-transform duration-700"
                       sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
+                    <div className="absolute inset-0 bg-linear-to-t from-black/70 via-black/20 to-transparent opacity-80 group-hover:opacity-90 transition-opacity" />
 
                     <Badge
-                      className={`absolute top-4 right-4 bg-gradient-to-r ${collection.gradient} text-white border-0 shadow-lg`}
+                      className={`absolute top-4 right-4 bg-linear-to-r ${collection.gradient} text-white border-0 shadow-lg`}
                     >
                       {collection.itemCount} Items
                     </Badge>
 
-                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-transform duration-300 group-hover:translate-y-[-4px]">
+                    <div className="absolute bottom-0 left-0 right-0 p-6 text-white transform transition-transform duration-300 group-hover:-translate-y-1">
                       <h3 className="text-2xl font-bold mb-2">
                         {collection.name}
                       </h3>
@@ -189,7 +189,7 @@ export default function CollectionsPage() {
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-br from-indigo-50 to-purple-50 dark:from-indigo-950 dark:to-purple-950">
+      <section className="py-20 bg-linear-to-br from-indigo-50 to-purple-50 dark:from-indigo-950 dark:to-purple-950">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div className="relative animate-slide-in-left">
@@ -202,17 +202,17 @@ export default function CollectionsPage() {
                   className="object-cover"
                 />
               </div>
-              <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-gradient-to-br from-pink-500 to-rose-500 rounded-full blur-3xl opacity-20" />
+              <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-linear-to-br from-pink-500 to-rose-500 rounded-full blur-3xl opacity-20" />
             </div>
 
             <div className="space-y-6 animate-slide-in-right">
-              <Badge className="bg-gradient-to-r from-indigo-500 to-purple-500 text-white border-0">
+              <Badge className="bg-linear-to-r from-indigo-500 to-purple-500 text-white border-0">
                 🌟 Seasonal Spotlight
               </Badge>
               <h2 className="text-4xl sm:text-5xl font-bold">
                 This Season's
                 <br />
-                <span className="bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
                   Must-Have Collection
                 </span>
               </h2>
@@ -223,19 +223,19 @@ export default function CollectionsPage() {
               </p>
               <ul className="space-y-3">
                 <li className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-green-500 to-teal-500 flex items-center justify-center text-white">
+                  <div className="w-8 h-8 rounded-full bg-linear-to-br from-green-500 to-teal-500 flex items-center justify-center text-white">
                     ✓
                   </div>
                   <span>Exclusive seasonal designs</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white">
+                  <div className="w-8 h-8 rounded-full bg-linear-to-br from-blue-500 to-cyan-500 flex items-center justify-center text-white">
                     ✓
                   </div>
                   <span>Limited time availability</span>
                 </li>
                 <li className="flex items-center gap-3">
-                  <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white">
+                  <div className="w-8 h-8 rounded-full bg-linear-to-br from-purple-500 to-pink-500 flex items-center justify-center text-white">
                     ✓
                   </div>
                   <span>Premium quality materials</span>
@@ -243,7 +243,7 @@ export default function CollectionsPage() {
               </ul>
               <Button
                 size="lg"
-                className="bg-gradient-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg px-8"
+                className="bg-linear-to-r from-indigo-600 to-purple-600 hover:from-indigo-700 hover:to-purple-700 text-white shadow-lg px-8"
               >
                 Shop Seasonal Collection
               </Button>

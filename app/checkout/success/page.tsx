@@ -1,25 +1,25 @@
-"use client";
+'use client';
 
-import { useEffect, useState, Suspense } from "react";
-import { useRouter, useSearchParams } from "next/navigation";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
+import { useEffect, useState, Suspense } from 'react';
+import { useRouter, useSearchParams } from 'next/navigation';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import {
   CheckCircle,
   Package,
   MapPin,
   CreditCard,
   ArrowRight,
-} from "lucide-react";
-import { formatPrice } from "@/lib/cart-utils";
+} from 'lucide-react';
+import { formatPrice } from '@/lib/cart-utils';
 import {
   formatOrderDate,
   getEstimatedDeliveryDate,
   getOrderStatusLabel,
   getPaymentStatusLabel,
   formatPhoneNumber,
-} from "@/lib/order-utils";
+} from '@/lib/order-utils';
 
 interface OrderDetails {
   id: string;
@@ -58,7 +58,7 @@ interface OrderDetails {
 function OrderSuccessContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const orderId = searchParams?.get("orderId");
+  const orderId = searchParams?.get('orderId');
 
   const [order, setOrder] = useState<OrderDetails | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -66,13 +66,13 @@ function OrderSuccessContent() {
 
   useEffect(() => {
     if (!orderId) {
-      router.push("/");
+      router.push('/');
       return;
     }
 
     fetch(`/api/orders/${orderId}`)
       .then((res) => {
-        if (!res.ok) throw new Error("Failed to fetch order");
+        if (!res.ok) throw new Error('Failed to fetch order');
         return res.json();
       })
       .then((data) => {
@@ -80,8 +80,8 @@ function OrderSuccessContent() {
         setIsLoading(false);
       })
       .catch((err) => {
-        console.error("Error fetching order:", err);
-        setError("Failed to load order details");
+        console.error('Error fetching order:', err);
+        setError('Failed to load order details');
         setIsLoading(false);
       });
   }, [orderId, router]);
@@ -101,7 +101,7 @@ function OrderSuccessContent() {
           <div className="bg-white rounded-lg shadow-sm p-8">
             <h1 className="text-2xl font-bold text-red-600 mb-4">Error</h1>
             <p className="text-gray-600 mb-6">
-              {error || "Failed to load order details"}
+              {error || 'Failed to load order details'}
             </p>
             <Link href="/">
               <Button>Return to Home</Button>
@@ -147,7 +147,7 @@ function OrderSuccessContent() {
               <p className="font-medium">{order.address.fullName}</p>
               <p className="text-sm">{order.address.street}</p>
               <p className="text-sm">
-                {order.address.city}, {order.address.state}{" "}
+                {order.address.city}, {order.address.state}{' '}
                 {order.address.postalCode}
               </p>
               <p className="text-sm">
@@ -166,7 +166,7 @@ function OrderSuccessContent() {
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">Payment Method</span>
                 <span className="font-medium">
-                  {order.paymentMethod.replace(/_/g, " ")}
+                  {order.paymentMethod.replace(/_/g, ' ')}
                 </span>
               </div>
               <div className="flex justify-between text-sm">
@@ -186,7 +186,7 @@ function OrderSuccessContent() {
         </div>
 
         {/* Delivery Estimate */}
-        <div className="bg-gradient-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg p-6 mb-6">
+        <div className="bg-linear-to-r from-indigo-50 to-purple-50 border border-indigo-200 rounded-lg p-6 mb-6">
           <div className="flex items-start gap-4">
             <Package className="h-6 w-6 text-indigo-600 mt-1" />
             <div className="flex-1">
@@ -194,7 +194,7 @@ function OrderSuccessContent() {
                 Estimated Delivery
               </h3>
               <p className="text-indigo-800">
-                Your order will be delivered by{" "}
+                Your order will be delivered by{' '}
                 <span className="font-semibold">
                   {getEstimatedDeliveryDate(new Date(order.createdAt))}
                 </span>
@@ -218,7 +218,7 @@ function OrderSuccessContent() {
                 className="flex gap-4 pb-4 border-b last:border-b-0"
               >
                 <img
-                  src={item.product.images[0]?.url || "/placeholder.png"}
+                  src={item.product.images[0]?.url || '/placeholder.png'}
                   alt={item.name}
                   className="w-20 h-20 object-cover rounded"
                 />
@@ -256,7 +256,7 @@ function OrderSuccessContent() {
               <span className="text-gray-600">Shipping</span>
               <span className="font-medium">
                 {order.shippingCost === 0
-                  ? "FREE"
+                  ? 'FREE'
                   : formatPrice(order.shippingCost)}
               </span>
             </div>

@@ -1,18 +1,18 @@
-"use client";
+'use client';
 
-import { useEffect, useState } from "react";
-import { useSession } from "next-auth/react";
-import { useRouter } from "next/navigation";
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { Package, Eye, ShoppingBag } from "lucide-react";
-import { formatPrice } from "@/lib/cart-utils";
+import { useEffect, useState } from 'react';
+import { useSession } from 'next-auth/react';
+import { useRouter } from 'next/navigation';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { Package, Eye, ShoppingBag } from 'lucide-react';
+import { formatPrice } from '@/lib/cart-utils';
 import {
   formatOrderDate,
   getOrderStatusLabel,
   getOrderStatusColor,
-} from "@/lib/order-utils";
+} from '@/lib/order-utils';
 
 interface Order {
   id: string;
@@ -38,26 +38,26 @@ export default function OrdersPage() {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    if (status === "unauthenticated") {
-      router.push("/login?callbackUrl=/account/orders");
+    if (status === 'unauthenticated') {
+      router.push('/login?callbackUrl=/account/orders');
       return;
     }
 
-    if (status === "authenticated") {
-      fetch("/api/orders")
+    if (status === 'authenticated') {
+      fetch('/api/orders')
         .then((res) => res.json())
         .then((data) => {
           setOrders(data);
           setIsLoading(false);
         })
         .catch((error) => {
-          console.error("Error fetching orders:", error);
+          console.error('Error fetching orders:', error);
           setIsLoading(false);
         });
     }
   }, [status, router]);
 
-  if (status === "loading" || isLoading) {
+  if (status === 'loading' || isLoading) {
     return (
       <div className="flex justify-center items-center min-h-screen">
         <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-indigo-600"></div>
@@ -152,16 +152,16 @@ export default function OrdersPage() {
                 {/* Order Items Preview */}
                 <div className="flex gap-2 overflow-x-auto pb-2">
                   {order.items.slice(0, 5).map((item, index) => (
-                    <div key={index} className="flex-shrink-0">
+                    <div key={index} className="shrink-0">
                       <img
-                        src={item.product.images[0]?.url || "/placeholder.png"}
+                        src={item.product.images[0]?.url || '/placeholder.png'}
                         alt={item.product.name}
                         className="w-16 h-16 object-cover rounded border"
                       />
                     </div>
                   ))}
                   {order.items.length > 5 && (
-                    <div className="flex-shrink-0 w-16 h-16 bg-gray-100 rounded border flex items-center justify-center">
+                    <div className="shrink-0 w-16 h-16 bg-gray-100 rounded border flex items-center justify-center">
                       <span className="text-sm font-medium text-gray-600">
                         +{order.items.length - 5}
                       </span>

@@ -34,7 +34,7 @@ export function TopProducts({ products }: TopProductsProps) {
               key={product.id}
               className="flex items-center gap-4 rounded-lg border p-3"
             >
-              <div className="relative h-12 w-12 flex-shrink-0 overflow-hidden rounded-md bg-gray-100">
+              <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-md bg-gray-100">
                 {product.images?.[0]?.url ? (
                   <Image
                     src={product.images[0].url}

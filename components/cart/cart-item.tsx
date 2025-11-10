@@ -1,11 +1,11 @@
-"use client";
+'use client';
 
-import Image from "next/image";
-import Link from "next/link";
-import { Minus, Plus, Trash2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { useCart } from "@/hooks/use-cart";
-import { useState } from "react";
+import Image from 'next/image';
+import Link from 'next/link';
+import { Minus, Plus, Trash2 } from 'lucide-react';
+import { Button } from '@/components/ui/button';
+import { useCart } from '@/hooks/use-cart';
+import { useState } from 'react';
 
 interface CartItemProps {
   item: {
@@ -66,7 +66,7 @@ export default function CartItem({ item }: CartItemProps) {
   return (
     <div className="flex gap-4 py-6 border-b">
       {/* Product Image */}
-      <Link href={`/products/${item.product.slug}`} className="flex-shrink-0">
+      <Link href={`/products/${item.product.slug}`} className="shrink-0">
         <div className="relative w-24 h-24 rounded-lg overflow-hidden bg-muted">
           {image ? (
             <Image
@@ -153,7 +153,7 @@ export default function CartItem({ item }: CartItemProps) {
             disabled={isRemoving}
           >
             <Trash2 className="h-4 w-4 mr-2" />
-            {isRemoving ? "Removing..." : "Remove"}
+            {isRemoving ? 'Removing...' : 'Remove'}
           </Button>
         </div>
 
