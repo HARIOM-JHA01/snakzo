@@ -81,10 +81,11 @@ async function getProducts(searchParams: SearchParams) {
 export default async function ProductsPage({
   searchParams,
 }: {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }) {
+  const resolvedSearchParams = await searchParams;
   const { products, totalCount, totalPages, currentPage } = await getProducts(
-    searchParams
+    resolvedSearchParams
   );
 
   return (

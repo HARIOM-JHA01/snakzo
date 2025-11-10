@@ -58,10 +58,11 @@ async function getOrders(searchParams: SearchParams) {
 export default async function OrdersPage({
   searchParams,
 }: {
-  searchParams: SearchParams;
+  searchParams: Promise<SearchParams>;
 }) {
+  const resolvedSearchParams = await searchParams;
   const { orders, totalCount, totalPages, currentPage } = await getOrders(
-    searchParams
+    resolvedSearchParams
   );
 
   return (
