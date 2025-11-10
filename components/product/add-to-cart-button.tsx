@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import { useCart } from "@/hooks/use-cart";
 
 interface AddToCartButtonProps {
   productId: string;
@@ -25,10 +26,10 @@ export default function AddToCartButton({
   isInStock,
 }: AddToCartButtonProps) {
   const [quantity, setQuantity] = useState(1);
-  const [isAddingToCart, setIsAddingToCart] = useState(false);
   const [isAddingToWishlist, setIsAddingToWishlist] = useState(false);
   const { data: session } = useSession();
   const router = useRouter();
+  const { addToCart, isLoading: isAddingToCart } = useCart();
 
   const handleQuantityChange = (change: number) => {
     const newQuantity = quantity + change;
@@ -43,61 +44,10 @@ export default function AddToCartButton({
       return;
     }
 
-    setIsAddingToCart(true);
+    await addToCart(productId, quantity, variantId || undefined);
 
-    try {
-      // If user is not logged in, store in localStorage
-      if (!session) {
-        const guestCart = JSON.parse(localStorage.getItem("guestCart") || "[]");
-        const existingItemIndex = guestCart.findIndex(
-          (item: any) =>
-            item.productId === productId && item.variantId === variantId
-        );
-
-        if (existingItemIndex >= 0) {
-          guestCart[existingItemIndex].quantity += quantity;
-        } else {
-          guestCart.push({
-            productId,
-            variantId,
-            quantity,
-            productName,
-            price,
-          });
-        }
-
-        localStorage.setItem("guestCart", JSON.stringify(guestCart));
-
-        toast.success(`${quantity} × ${productName} added to your cart.`);
-      } else {
-        // Add to database cart
-        const response = await fetch("/api/cart", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            productId,
-            variantId,
-            quantity,
-          }),
-        });
-
-        if (!response.ok) {
-          throw new Error("Failed to add to cart");
-        }
-
-        toast.success(`${quantity} × ${productName} added to your cart.`);
-      }
-
-      // Reset quantity to 1 after adding
-      setQuantity(1);
-    } catch (error) {
-      console.error("Error adding to cart:", error);
-      toast.error("Failed to add item to cart. Please try again.");
-    } finally {
-      setIsAddingToCart(false);
-    }
+    // Reset quantity to 1 after adding
+    setQuantity(1);
   };
 
   const handleAddToWishlist = async () => {

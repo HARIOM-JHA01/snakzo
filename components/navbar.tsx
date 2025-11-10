@@ -1,9 +1,9 @@
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
 import { auth } from "@/lib/auth";
 import { UserMenu } from "./auth/user-menu";
 import { SessionProvider } from "next-auth/react";
+import CartButton from "./cart/cart-button";
 
 export default async function Navbar() {
   const session = await auth();
@@ -44,12 +44,7 @@ export default async function Navbar() {
         </nav>
 
         <div className="flex items-center gap-3">
-          <Button size="sm" variant="ghost" className="relative">
-            🛒
-            <Badge className="absolute -top-2 -right-2 h-5 w-5 rounded-full bg-linear-to-r from-pink-500 to-rose-500 text-white border-0 p-0 flex items-center justify-center text-xs">
-              3
-            </Badge>
-          </Button>
+          <CartButton />
           {session?.user ? (
             <SessionProvider session={session}>
               <UserMenu />
