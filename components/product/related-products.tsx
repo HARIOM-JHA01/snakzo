@@ -1,7 +1,7 @@
-import Link from "next/link";
-import Image from "next/image";
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import Link from 'next/link';
+import Image from 'next/image';
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
 
 interface RelatedProduct {
   id: string;
@@ -91,14 +91,7 @@ export default function RelatedProducts({ products }: RelatedProductsProps) {
                       )}
                     </div>
 
-                    <Button
-                      size="sm"
-                      className="w-full"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        // This will be handled by the product detail page
-                      }}
-                    >
+                    <Button size="sm" className="w-full">
                       View Details
                     </Button>
                   </div>

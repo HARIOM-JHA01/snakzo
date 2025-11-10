@@ -38,14 +38,9 @@ const navigation = [
     icon: Users,
   },
   {
-    name: 'Categories',
+    name: 'Categories & Brands',
     href: '/admin/categories',
     icon: Folders,
-  },
-  {
-    name: 'Brands',
-    href: '/admin/brands',
-    icon: Tag,
   },
   {
     name: 'Collections',
