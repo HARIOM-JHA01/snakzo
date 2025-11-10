@@ -48,6 +48,11 @@ const navigation = [
     icon: Box,
   },
   {
+    name: 'Coupons',
+    href: '/admin/coupons',
+    icon: Tag,
+  },
+  {
     name: 'Reviews',
     href: '/admin/reviews',
     icon: Star,
