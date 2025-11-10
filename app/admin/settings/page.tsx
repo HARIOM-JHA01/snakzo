@@ -1,7 +1,7 @@
 import { redirect } from 'next/navigation';
 import { auth } from '@/lib/auth';
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
-import GeneralSettings from '@/components/admin/settings/general-settings';
+import { GeneralSettings } from '@/components/admin/settings/general-settings';
 import ShippingSettings from '@/components/admin/settings/shipping-settings';
 import NotificationSettings from '@/components/admin/settings/notification-settings';
 

@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { useState, useEffect } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm } from 'react-hook-form';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import {
@@ -16,7 +16,20 @@ import {
 } from '@/components/ui/form';
 import { Input } from '@/components/ui/input';
 import { Textarea } from '@/components/ui/textarea';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from '@/components/ui/select';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
 import { toast } from 'sonner';
 import { Loader2 } from 'lucide-react';
 
@@ -32,28 +45,50 @@ const generalSettingsSchema = z.object({
 
 type GeneralSettingsValues = z.infer<typeof generalSettingsSchema>;
 
-export default function GeneralSettings() {
+export function GeneralSettings() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
 
   const form = useForm<GeneralSettingsValues>({
     resolver: zodResolver(generalSettingsSchema),
     defaultValues: {
-      storeName: 'Quickhaat',
-      storeEmail: 'support@quickhaat.com',
-      storePhone: '+1 (555) 123-4567',
-      storeAddress: '123 Main St, City, State 12345',
-      storeDescription: 'Your one-stop shop for quality products',
+      storeName: '',
+      storeEmail: '',
+      storePhone: '',
+      storeAddress: '',
+      storeDescription: '',
       currency: 'USD',
       timezone: 'America/New_York',
     },
   });
 
+  useEffect(() => {
+    async function fetchSettings() {
+      try {
+        const response = await fetch('/api/admin/settings');
+        if (!response.ok) throw new Error('Failed to fetch settings');
+        const data = await response.json();
+        form.reset(data.general);
+      } catch (error) {
+        toast.error('Failed to load settings');
+      } finally {
+        setIsFetching(false);
+      }
+    }
+    fetchSettings();
+  }, [form]);
+
   async function onSubmit(data: GeneralSettingsValues) {
     setIsLoading(true);
-
     try {
-      // In a real app, this would save to database or configuration
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      const response = await fetch('/api/admin/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'general', settings: data }),
+      });
+
+      if (!response.ok) throw new Error('Failed to save settings');
+
       toast.success('Settings saved successfully');
     } catch (error) {
       toast.error('Failed to save settings');
@@ -62,32 +97,40 @@ export default function GeneralSettings() {
     }
   }
 
+  if (isFetching) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
+  }
+
   return (
     <Card>
       <CardHeader>
         <CardTitle>General Settings</CardTitle>
+        <CardDescription>
+          Update your store information and preferences
+        </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <FormField
-              control={form.control}
-              name="storeName"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Store Name</FormLabel>
-                  <FormControl>
-                    <Input placeholder="My Store" {...field} />
-                  </FormControl>
-                  <FormDescription>
-                    The name of your store displayed to customers
-                  </FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+            <div className="grid gap-6 md:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="storeName"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Store Name</FormLabel>
+                    <FormControl>
+                      <Input placeholder="Enter store name" {...field} />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
 
-            <div className="grid gap-6 sm:grid-cols-2">
               <FormField
                 control={form.control}
                 name="storeEmail"
@@ -101,7 +144,6 @@ export default function GeneralSettings() {
                         {...field}
                       />
                     </FormControl>
-                    <FormDescription>Primary contact email</FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -116,27 +158,28 @@ export default function GeneralSettings() {
                     <FormControl>
                       <Input placeholder="+1 (555) 123-4567" {...field} />
                     </FormControl>
-                    <FormDescription>Customer support phone</FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="storeAddress"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Store Address</FormLabel>
+                    <FormControl>
+                      <Input
+                        placeholder="123 Main St, City, State 12345"
+                        {...field}
+                      />
+                    </FormControl>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
-
-            <FormField
-              control={form.control}
-              name="storeAddress"
-              render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Store Address</FormLabel>
-                  <FormControl>
-                    <Input placeholder="123 Main St, City, State" {...field} />
-                  </FormControl>
-                  <FormDescription>Physical store address</FormDescription>
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
 
             <FormField
               control={form.control}
@@ -146,30 +189,41 @@ export default function GeneralSettings() {
                   <FormLabel>Store Description</FormLabel>
                   <FormControl>
                     <Textarea
-                      placeholder="Tell customers about your store..."
+                      placeholder="Enter a brief description of your store"
+                      className="min-h-[100px]"
                       {...field}
-                      rows={3}
                     />
                   </FormControl>
                   <FormDescription>
-                    A brief description of your store
+                    This will appear in search results and social media
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
 
-            <div className="grid gap-6 sm:grid-cols-2">
+            <div className="grid gap-6 md:grid-cols-2">
               <FormField
                 control={form.control}
                 name="currency"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Currency</FormLabel>
-                    <FormControl>
-                      <Input placeholder="USD" {...field} />
-                    </FormControl>
-                    <FormDescription>Store currency code</FormDescription>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select currency" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="USD">USD ($)</SelectItem>
+                        <SelectItem value="EUR">EUR (€)</SelectItem>
+                        <SelectItem value="GBP">GBP (£)</SelectItem>
+                        <SelectItem value="INR">INR (₹)</SelectItem>
+                        <SelectItem value="CAD">CAD ($)</SelectItem>
+                        <SelectItem value="AUD">AUD ($)</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}
@@ -181,10 +235,37 @@ export default function GeneralSettings() {
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Timezone</FormLabel>
-                    <FormControl>
-                      <Input placeholder="America/New_York" {...field} />
-                    </FormControl>
-                    <FormDescription>Store timezone</FormDescription>
+                    <Select onValueChange={field.onChange} value={field.value}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select timezone" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="America/New_York">
+                          Eastern Time (ET)
+                        </SelectItem>
+                        <SelectItem value="America/Chicago">
+                          Central Time (CT)
+                        </SelectItem>
+                        <SelectItem value="America/Denver">
+                          Mountain Time (MT)
+                        </SelectItem>
+                        <SelectItem value="America/Los_Angeles">
+                          Pacific Time (PT)
+                        </SelectItem>
+                        <SelectItem value="Europe/London">
+                          London (GMT)
+                        </SelectItem>
+                        <SelectItem value="Europe/Paris">
+                          Paris (CET)
+                        </SelectItem>
+                        <SelectItem value="Asia/Kolkata">
+                          India (IST)
+                        </SelectItem>
+                        <SelectItem value="Asia/Tokyo">Tokyo (JST)</SelectItem>
+                      </SelectContent>
+                    </Select>
                     <FormMessage />
                   </FormItem>
                 )}

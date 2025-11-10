@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
@@ -32,6 +32,7 @@ type ShippingSettingsValues = z.infer<typeof shippingSettingsSchema>;
 
 export default function ShippingSettings() {
   const [isLoading, setIsLoading] = useState(false);
+  const [isFetching, setIsFetching] = useState(true);
 
   const form = useForm<ShippingSettingsValues>({
     resolver: zodResolver(shippingSettingsSchema),
@@ -44,18 +45,47 @@ export default function ShippingSettings() {
     },
   });
 
+  useEffect(() => {
+    async function fetchSettings() {
+      try {
+        const response = await fetch('/api/admin/settings');
+        if (!response.ok) throw new Error('Failed to fetch settings');
+        const data = await response.json();
+        form.reset(data.shipping);
+      } catch (error) {
+        toast.error('Failed to load settings');
+      } finally {
+        setIsFetching(false);
+      }
+    }
+    fetchSettings();
+  }, [form]);
+
   async function onSubmit(data: ShippingSettingsValues) {
     setIsLoading(true);
-
     try {
-      // In a real app, this would save to database
-      await new Promise((resolve) => setTimeout(resolve, 1000));
-      toast.success('Shipping settings saved');
+      const response = await fetch('/api/admin/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ type: 'shipping', settings: data }),
+      });
+
+      if (!response.ok) throw new Error('Failed to save settings');
+
+      toast.success('Shipping settings saved successfully');
     } catch (error) {
       toast.error('Failed to save settings');
     } finally {
       setIsLoading(false);
     }
+  }
+
+  if (isFetching) {
+    return (
+      <div className="flex items-center justify-center py-12">
+        <Loader2 className="h-8 w-8 animate-spin text-muted-foreground" />
+      </div>
+    );
   }
 
   return (
@@ -100,15 +130,12 @@ export default function ShippingSettings() {
                       <Input
                         type="number"
                         step="0.01"
-                        min="0"
+                        placeholder="5.99"
                         {...field}
-                        onChange={(e) =>
-                          field.onChange(parseFloat(e.target.value))
-                        }
                       />
                     </FormControl>
                     <FormDescription>
-                      Flat shipping rate in your store currency
+                      Fixed shipping cost for all orders
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -126,7 +153,7 @@ export default function ShippingSettings() {
                       Enable Free Shipping
                     </FormLabel>
                     <FormDescription>
-                      Offer free shipping on orders above a threshold
+                      Offer free shipping above a threshold
                     </FormDescription>
                   </div>
                   <FormControl>
@@ -150,15 +177,12 @@ export default function ShippingSettings() {
                       <Input
                         type="number"
                         step="0.01"
-                        min="0"
+                        placeholder="50"
                         {...field}
-                        onChange={(e) =>
-                          field.onChange(parseFloat(e.target.value))
-                        }
                       />
                     </FormControl>
                     <FormDescription>
-                      Minimum order value for free shipping
+                      Minimum order amount for free shipping
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
@@ -176,7 +200,7 @@ export default function ShippingSettings() {
                     <Input placeholder="1-2 business days" {...field} />
                   </FormControl>
                   <FormDescription>
-                    Typical order processing time
+                    Time to process orders before shipping
                   </FormDescription>
                   <FormMessage />
                 </FormItem>
