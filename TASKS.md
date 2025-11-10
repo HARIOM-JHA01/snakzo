@@ -155,10 +155,29 @@ bun add resend @react-email/components
 **Description:**
 Create advanced search and filtering functionality with faceted search, price ranges, and sorting options.
 
-**Files to Create/Modify:**
+**Objectives:**
 
-- `app/search/page.tsx` - Search results page
-  **Labels:** `enhancement`, `database`, `high-priority`
+- [x] Create `/search` results page with server-side Prisma queries
+- [x] Add search bar to navbar with debounced navigation
+- [x] Implement faceted filters (category, brand, price range, rating)
+- [x] Add sorting (relevance, price asc/desc, newest, rating/popularity)
+- [x] Pagination with page/perPage query params
+- [x] Preserve filters in URL and reset page on changes
+- [x] Render DB-backed product cards with image, price, discount badge
+
+**Files Created/Modified:**
+
+- `app/search/page.tsx` - Search results page ✅
+- `components/search/search-bar.tsx` - Navbar search input (client) ✅
+- `components/search/filter-sidebar.tsx` - Faceted filters (client) ✅
+- `components/product/db-product-card.tsx` - Product card for Prisma model ✅
+- `components/navbar.tsx` - Integrated `SearchBar` ✅
+
+**Notes:** Uses Prisma filters on Product with includes for images and basic review-based popularity; rating filter approximates to products having at least one review at or above threshold. Further improvements can aggregate average ratings if needed.
+
+### 6. Update Homepage to Fetch Data from Database
+
+**Labels:** `enhancement`, `database`, `high-priority`
 
 **Description:**
 Update the homepage to dynamically fetch products, categories, and collections from the database instead of using static data.
