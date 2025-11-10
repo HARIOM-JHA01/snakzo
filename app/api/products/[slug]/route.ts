@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/prisma";
+import { setCacheHeaders, CACHE_DURATIONS } from "@/lib/api-cache";
 
 export async function GET(
   request: NextRequest,
@@ -99,12 +100,15 @@ export async function GET(
         })
       : [];
 
-    return NextResponse.json({
+    const response = NextResponse.json({
       ...product,
       avgRating,
       totalReviews: product._count.reviews,
       relatedProducts,
     });
+
+    // Cache product data for 1 hour
+    return setCacheHeaders(response, CACHE_DURATIONS.MEDIUM);
   } catch (error) {
     console.error("Error fetching product:", error);
     return NextResponse.json(

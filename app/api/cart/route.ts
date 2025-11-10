@@ -1,9 +1,12 @@
 import { NextRequest, NextResponse } from "next/server";
 import { auth } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
+import { withRateLimit } from "@/lib/with-rate-limit";
+import { rateLimiters } from "@/lib/rate-limit";
+import { getCached, CACHE_KEYS, CACHE_TTL, invalidateCache } from "@/lib/redis";
 
 // GET /api/cart - Get user's cart
-export async function GET() {
+async function getCartHandler() {
   try {
     const session = await auth();
 
@@ -69,8 +72,13 @@ export async function GET() {
   }
 }
 
+export const GET = withRateLimit(
+  async (request: NextRequest) => getCartHandler(),
+  rateLimiters.cart
+);
+
 // POST /api/cart - Add item to cart
-export async function POST(request: NextRequest) {
+async function postCartHandler(request: NextRequest) {
   try {
     const session = await auth();
 
@@ -198,6 +206,9 @@ export async function POST(request: NextRequest) {
       },
     });
 
+    // Invalidate cart cache
+    await invalidateCache(CACHE_KEYS.CART(session.user.id));
+
     return NextResponse.json(cartItem, { status: 201 });
   } catch (error) {
     console.error("Error adding to cart:", error);
@@ -208,8 +219,10 @@ export async function POST(request: NextRequest) {
   }
 }
 
+export const POST = withRateLimit(postCartHandler, rateLimiters.cart);
+
 // DELETE /api/cart - Clear entire cart
-export async function DELETE() {
+async function deleteCartHandler() {
   try {
     const session = await auth();
 
@@ -230,6 +243,9 @@ export async function DELETE() {
       where: { cartId: cart.id },
     });
 
+    // Invalidate cart cache
+    await invalidateCache(CACHE_KEYS.CART(session.user.id));
+
     return NextResponse.json({ message: "Cart cleared successfully" });
   } catch (error) {
     console.error("Error clearing cart:", error);
@@ -239,3 +255,8 @@ export async function DELETE() {
     );
   }
 }
+
+export const DELETE = withRateLimit(
+  async (request: NextRequest) => deleteCartHandler(),
+  rateLimiters.cart
+);

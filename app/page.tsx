@@ -9,6 +9,11 @@ import { Badge } from "@/components/ui/badge";
 import { prisma } from "@/lib/prisma";
 import { formatPrice } from "@/lib/cart-utils";
 import Link from "next/link";
+import { StructuredData } from "@/components/seo/structured-data";
+import {
+  generateOrganizationSchema,
+  generateWebsiteSchema,
+} from "@/lib/structured-data";
 
 // Category icon mapping
 const categoryIcons: Record<string, { icon: string; color: string }> = {
@@ -94,8 +99,12 @@ export default async function Home() {
     },
   ];
 
+  const organizationSchema = generateOrganizationSchema();
+  const websiteSchema = generateWebsiteSchema();
+
   return (
     <div className="min-h-screen bg-background font-sans">
+      <StructuredData data={[organizationSchema, websiteSchema]} />
       <Navbar />
       <Hero />
 

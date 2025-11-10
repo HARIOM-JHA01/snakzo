@@ -11,6 +11,12 @@ import RelatedProducts from "@/components/product/related-products";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { StructuredData } from "@/components/seo/structured-data";
+import {
+  generateProductSchema,
+  generateBreadcrumbSchema,
+} from "@/lib/structured-data";
+import { generateProductMetadata } from "@/lib/seo";
 
 interface ProductPageProps {
   params: Promise<{
@@ -56,21 +62,13 @@ export async function generateMetadata({
 
   const image = product.images[0]?.url;
 
-  return {
-    title: `${product.name} | Quickhaat`,
-    description: product.description || `Buy ${product.name} at the best price`,
-    openGraph: {
-      title: product.name,
-      description: product.description || undefined,
-      images: image ? [{ url: image }] : [],
-    },
-    twitter: {
-      card: "summary_large_image",
-      title: product.name,
-      description: product.description || undefined,
-      images: image ? [image] : [],
-    },
-  };
+  return generateProductMetadata({
+    name: product.name,
+    description: product.description || undefined,
+    image,
+    price: product.price,
+    slug: product.slug,
+  });
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
@@ -182,8 +180,55 @@ export default async function ProductPage({ params }: ProductPageProps) {
         )
       : 0;
 
+  // Generate structured data for SEO
+  const breadcrumbItems = [
+    {
+      name: "Home",
+      url: process.env.NEXT_PUBLIC_SITE_URL || "https://quickhaat.com",
+    },
+    {
+      name: "Shop",
+      url: `${
+        process.env.NEXT_PUBLIC_SITE_URL || "https://quickhaat.com"
+      }/shop`,
+    },
+  ];
+
+  if (product.category) {
+    breadcrumbItems.push({
+      name: product.category.name,
+      url: `${
+        process.env.NEXT_PUBLIC_SITE_URL || "https://quickhaat.com"
+      }/shop?categories=${product.category.slug}`,
+    });
+  }
+
+  breadcrumbItems.push({
+    name: product.name,
+    url: `${
+      process.env.NEXT_PUBLIC_SITE_URL || "https://quickhaat.com"
+    }/products/${product.slug}`,
+  });
+
+  const productSchema = generateProductSchema({
+    name: product.name,
+    description: product.description || undefined,
+    image: product.images[0]?.url,
+    price: product.price,
+    brand: product.brand?.name,
+    category: product.category?.name,
+    sku: product.slug,
+    availability: "InStock",
+    url: `${
+      process.env.NEXT_PUBLIC_SITE_URL || "https://quickhaat.com"
+    }/products/${product.slug}`,
+  });
+
+  const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbItems);
+
   return (
     <div className="min-h-screen">
+      <StructuredData data={[productSchema, breadcrumbSchema]} />
       <div className="container mx-auto px-4 py-8">
         {/* Breadcrumbs */}
         <nav className="flex items-center gap-2 text-sm mb-8 text-muted-foreground">
