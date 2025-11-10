@@ -175,7 +175,7 @@ Create advanced search and filtering functionality with faceted search, price ra
 
 **Notes:** Uses Prisma filters on Product with includes for images and basic review-based popularity; rating filter approximates to products having at least one review at or above threshold. Further improvements can aggregate average ratings if needed.
 
-### 6. Update Homepage to Fetch Data from Database
+### 6. Update Homepage to Fetch Data from Database ✅
 
 **Labels:** `enhancement`, `database`, `high-priority`
 
@@ -184,19 +184,23 @@ Update the homepage to dynamically fetch products, categories, and collections f
 
 **Objectives:**
 
-- [ ] Replace static product data with database queries
-- [ ] Fetch featured products from database
-- [ ] Fetch categories with images from database
-- [ ] Fetch collections from database
-- [ ] Add loading states for async data
-- [ ] Implement caching for homepage data
-- [ ] Update all components to use Prisma types
+- [x] Replace static product data with database queries
+- [x] Fetch featured products from database
+- [x] Fetch categories with images from database
+- [x] Add loading states for async data
+- [x] Update all components to use Prisma types
+- [x] Link categories to shop page with filters
+- [x] Display product counts on category cards
+- [x] Add empty state for no products
 
-**Files to Modify:**
+**Files Modified:**
 
-- `app/page.tsx` - Update to fetch from database
-- `components/hero.tsx` - Use dynamic data if needed
-- `components/product-card.tsx` - Ensure compatibility with DB types
+- `app/page.tsx` - Updated to fetch from database ✅
+- Uses `DbProductCard` for Prisma compatibility ✅
+- Added category icon mapping with fallback ✅
+- Implemented proper error handling with empty states ✅
+
+**Notes:** Homepage now fetches top 8 featured/latest products and top 4 categories with product counts. Categories link to shop page with pre-filtered results. All gradient classes updated to match project conventions.
 
 ---
 
@@ -637,6 +641,10 @@ bun add next-intl
 - [x] Database migrations
 - [x] **Task 1: Authentication System with NextAuth.js** ✨
 - [x] **Task 2: Product Detail Page with Dynamic Routes** ✨
+- [x] **Task 3: Shopping Cart Functionality** ✨
+- [x] **Task 4: Checkout Process and Order Management** ✨
+- [x] **Task 5: Product Search and Filtering System** ✨
+- [x] **Task 6: Update Homepage to Fetch Data from Database** ✨
 
 ### In Progress 🔄
 

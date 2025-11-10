@@ -1,24 +1,71 @@
 import Image from "next/image";
 import Navbar from "@/components/navbar";
 import Hero from "@/components/hero";
-import ProductCard from "@/components/product-card";
+import { DbProductCard } from "@/components/product/db-product-card";
 import Newsletter from "@/components/newsletter";
 import Footer from "@/components/footer";
-import { products } from "@/data/products";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { prisma } from "@/lib/prisma";
+import { formatPrice } from "@/lib/cart-utils";
+import Link from "next/link";
 
-export default function Home() {
-  const categories = [
-    { name: "Electronics", icon: "⚡", color: "from-blue-500 to-cyan-500" },
-    { name: "Fashion", icon: "👕", color: "from-pink-500 to-rose-500" },
-    {
-      name: "Home & Living",
-      icon: "🏠",
-      color: "from-green-500 to-emerald-500",
+// Category icon mapping
+const categoryIcons: Record<string, { icon: string; color: string }> = {
+  Electronics: { icon: "⚡", color: "from-blue-500 to-cyan-500" },
+  Fashion: { icon: "👕", color: "from-pink-500 to-rose-500" },
+  "Home & Living": { icon: "🏠", color: "from-green-500 to-emerald-500" },
+  Sports: { icon: "⚽", color: "from-orange-500 to-amber-500" },
+  Beauty: { icon: "💄", color: "from-pink-400 to-rose-400" },
+  Books: { icon: "📚", color: "from-indigo-400 to-purple-400" },
+  Toys: { icon: "🧸", color: "from-yellow-500 to-orange-400" },
+  default: { icon: "🛍️", color: "from-gray-500 to-slate-500" },
+};
+
+export default async function Home() {
+  // Fetch featured products (first 8 featured or latest)
+  const featuredProducts = await prisma.product.findMany({
+    where: {
+      isActive: true,
     },
-    { name: "Sports", icon: "⚽", color: "from-orange-500 to-amber-500" },
-  ];
+    include: {
+      images: {
+        orderBy: { position: "asc" },
+        take: 1,
+      },
+      category: {
+        select: { name: true, slug: true },
+      },
+      brand: {
+        select: { name: true },
+      },
+    },
+    orderBy: [{ isFeatured: "desc" }, { createdAt: "desc" }],
+    take: 8,
+  });
+
+  // Fetch top categories with product counts
+  const categories = await prisma.category.findMany({
+    where: {
+      isActive: true,
+      parentId: null, // Only top-level categories
+    },
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      image: true,
+      _count: {
+        select: { products: true },
+      },
+    },
+    orderBy: {
+      products: {
+        _count: "desc",
+      },
+    },
+    take: 4,
+  });
 
   const features = [
     {
@@ -52,10 +99,10 @@ export default function Home() {
       <Navbar />
       <Hero />
 
-      <section className="py-16 bg-gradient-to-b from-background to-muted/20">
+      <section className="py-16 bg-linear-to-b from-background to-muted/20">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-12 animate-fade-up">
-            <Badge className="mb-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white border-0 text-sm px-4 py-1">
+            <Badge className="mb-4 bg-linear-to-r from-indigo-500 to-purple-500 text-white border-0 text-sm px-4 py-1">
               Popular Categories
             </Badge>
             <h2 className="text-3xl sm:text-4xl font-bold">Shop by Category</h2>
@@ -65,23 +112,31 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 animate-fade-up delay-100">
-            {categories.map((category, index) => (
-              <div
-                key={category.name}
-                className="group relative overflow-hidden rounded-2xl bg-card border-2 border-border hover:border-transparent p-6 text-center cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
-                style={{ animationDelay: `${index * 100}ms` }}
-              >
-                <div
-                  className={`absolute inset-0 bg-gradient-to-br ${category.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
-                />
-                <div className="relative z-10">
-                  <div className="text-5xl mb-3 transform group-hover:scale-110 transition-transform duration-300">
-                    {category.icon}
+            {categories.map((category, index) => {
+              const iconData =
+                categoryIcons[category.name] || categoryIcons.default;
+              return (
+                <Link
+                  key={category.id}
+                  href={`/shop?categories=${category.slug}`}
+                  className="group relative overflow-hidden rounded-2xl bg-card border-2 border-border hover:border-transparent p-6 text-center cursor-pointer transition-all duration-300 hover:shadow-2xl hover:-translate-y-2"
+                  style={{ animationDelay: `${index * 100}ms` }}
+                >
+                  <div
+                    className={`absolute inset-0 bg-linear-to-br ${iconData.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}
+                  />
+                  <div className="relative z-10">
+                    <div className="text-5xl mb-3 transform group-hover:scale-110 transition-transform duration-300">
+                      {iconData.icon}
+                    </div>
+                    <h3 className="font-semibold text-lg">{category.name}</h3>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      {category._count.products} products
+                    </p>
                   </div>
-                  <h3 className="font-semibold text-lg">{category.name}</h3>
-                </div>
-              </div>
-            ))}
+                </Link>
+              );
+            })}
           </div>
         </div>
       </section>
@@ -89,11 +144,11 @@ export default function Home() {
       <section className="py-20 bg-background">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="text-center mb-12 animate-fade-up">
-            <Badge className="mb-4 bg-gradient-to-r from-purple-500 to-pink-500 text-white border-0 text-sm px-4 py-1">
+            <Badge className="mb-4 bg-linear-to-r from-purple-500 to-pink-500 text-white border-0 text-sm px-4 py-1">
               Trending Now
             </Badge>
             <h2 className="text-3xl sm:text-4xl font-bold">
-              <span className="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
+              <span className="bg-linear-to-r from-indigo-600 via-purple-600 to-pink-600 bg-clip-text text-transparent">
                 Featured Products
               </span>
             </h2>
@@ -103,29 +158,37 @@ export default function Home() {
           </div>
 
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-            {products.map((product, index) => (
+            {featuredProducts.map((product, index) => (
               <div
                 key={product.id}
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <ProductCard product={product} />
+                <DbProductCard product={product as any} />
               </div>
             ))}
           </div>
 
+          {featuredProducts.length === 0 && (
+            <div className="text-center py-12 text-muted-foreground">
+              <p>No products available at the moment. Check back soon!</p>
+            </div>
+          )}
+
           <div className="text-center mt-12 animate-fade-up delay-300">
-            <Button
-              size="lg"
-              variant="outline"
-              className="border-2 border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50 dark:border-indigo-800 dark:hover:border-indigo-600 px-8"
-            >
-              View All Products →
-            </Button>
+            <Link href="/shop">
+              <Button
+                size="lg"
+                variant="outline"
+                className="border-2 border-indigo-200 hover:border-indigo-400 hover:bg-indigo-50 dark:border-indigo-800 dark:hover:border-indigo-600 px-8"
+              >
+                View All Products →
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
 
-      <section className="py-20 bg-gradient-to-b from-muted/20 to-background">
+      <section className="py-20 bg-linear-to-b from-muted/20 to-background">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {features.map((feature, index) => (
@@ -135,11 +198,11 @@ export default function Home() {
                 style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div
-                  className={`absolute inset-0 bg-gradient-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
+                  className={`absolute inset-0 bg-linear-to-br ${feature.gradient} opacity-0 group-hover:opacity-5 transition-opacity duration-300`}
                 />
                 <div className="relative z-10">
                   <div
-                    className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-gradient-to-br ${feature.gradient} text-white text-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}
+                    className={`inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-linear-to-br ${feature.gradient} text-white text-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform duration-300`}
                   >
                     {feature.icon}
                   </div>
@@ -169,17 +232,17 @@ export default function Home() {
                   sizes="(max-width: 768px) 100vw, 50vw"
                 />
               </div>
-              <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-full blur-3xl opacity-20" />
+              <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-linear-to-br from-indigo-500 to-purple-500 rounded-full blur-3xl opacity-20" />
             </div>
 
             <div className="space-y-6 animate-slide-in-right">
-              <Badge className="bg-gradient-to-r from-green-500 to-teal-500 text-white border-0 text-sm px-4 py-1">
+              <Badge className="bg-linear-to-r from-green-500 to-teal-500 text-white border-0 text-sm px-4 py-1">
                 Limited Time Offer
               </Badge>
               <h2 className="text-4xl sm:text-5xl font-bold leading-tight">
                 Summer Sale
                 <br />
-                <span className="bg-gradient-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
+                <span className="bg-linear-to-r from-orange-500 to-pink-500 bg-clip-text text-transparent">
                   Up to 50% Off
                 </span>
               </h2>
@@ -190,7 +253,7 @@ export default function Home() {
               <div className="flex gap-4 pt-4">
                 <Button
                   size="lg"
-                  className="bg-gradient-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 px-8"
+                  className="bg-linear-to-r from-orange-500 to-pink-500 hover:from-orange-600 hover:to-pink-600 text-white shadow-lg hover:shadow-xl transition-all duration-300 px-8"
                 >
                   Shop Sale
                 </Button>
