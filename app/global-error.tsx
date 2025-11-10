@@ -1,16 +1,12 @@
 "use client";
 
+import * as Sentry from "@sentry/nextjs";
+import Error from "next/error";
 import { useEffect } from "react";
 
-export default function GlobalError({
-  error,
-  reset,
-}: {
-  error: Error & { digest?: string };
-  reset: () => void;
-}) {
+export default function GlobalError({ error }: { error: Error }) {
   useEffect(() => {
-    console.error("Global Error:", error);
+    Sentry.captureException(error);
   }, [error]);
 
   return (
@@ -25,12 +21,6 @@ export default function GlobalError({
                 contact support if the problem persists.
               </p>
             </div>
-            <button
-              onClick={() => reset()}
-              className="px-4 py-2 bg-primary text-primary-foreground rounded-md hover:bg-primary/90"
-            >
-              Try again
-            </button>
           </div>
         </div>
       </body>

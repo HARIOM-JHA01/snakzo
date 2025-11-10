@@ -1,4 +1,3 @@
-"use client";
 import Image from "next/image";
 import Navbar from "@/components/navbar";
 import { DbProductCard } from "@/components/product/db-product-card";
@@ -8,6 +7,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import { SortSelect } from "./sort-select";
 
 function toArray(v: string | string[] | null | undefined): string[] {
   if (!v) return [];
@@ -180,29 +180,7 @@ export default async function ShopPage({
               })}
             </div>
 
-            <div className="flex items-center gap-2">
-              <span className="text-sm text-muted-foreground">Sort by:</span>
-              <select
-                value={sort}
-                onChange={(e) => {
-                  const search = new URLSearchParams(
-                    Object.entries(params).flatMap(([k, v]) =>
-                      Array.isArray(v) ? v.map((vv) => [k, vv]) : [[k, v ?? ""]]
-                    )
-                  );
-                  search.set("sort", e.target.value);
-                  search.delete("page");
-                  window.location.href = `/shop?${search.toString()}`;
-                }}
-                className="px-3 py-1.5 rounded-md border bg-background text-sm"
-              >
-                <option value="newest">Newest</option>
-                <option value="price_asc">Price: Low to High</option>
-                <option value="price_desc">Price: High to Low</option>
-                <option value="name">Name A-Z</option>
-                <option value="popular">Most Popular</option>
-              </select>
-            </div>
+            <SortSelect sort={sort} params={params} />
           </div>
         </div>
       </section>

@@ -6,12 +6,21 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "analyze": "ANALYZE=true next build --webpack",
     "lint": "eslint",
+    "type-check": "tsc --noEmit",
+    "test": "echo 'Tests will be added in future' && exit 0",
+    "test:watch": "echo 'Tests will be added in future'",
+    "test:coverage": "echo 'Tests will be added in future'",
     "db:seed": "bun prisma/seed.ts",
     "db:studio": "bunx prisma studio",
     "db:migrate": "bunx prisma migrate dev",
     "db:push": "bunx prisma db push",
-    "db:reset": "bunx prisma migrate reset"
+    "db:reset": "bunx prisma migrate reset",
+    "postinstall": "prisma generate",
+    "prepare": "node -e \"try { require('husky') } catch (e) { console.log('Husky not installed') }\"",
+    "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,css,md}\"",
+    "format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,json,css,md}\""
   },
   "prisma": {
     "seed": "bun prisma/seed.ts"
