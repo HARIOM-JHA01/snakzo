@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 import { expand } from "dotenv-expand";
-import { defineConfig, env } from "prisma/config";
+import { defineConfig } from "prisma/config";
 
 expand(config({ path: ".env.local" }));
 
@@ -11,6 +11,8 @@ export default defineConfig({
   },
   engine: "classic",
   datasource: {
-    url: env("DATABASE_URL"),
+    // Use a placeholder URL if DATABASE_URL is not set (e.g., during dependency installation)
+    // Prisma client generation doesn't need a real DB connection
+    url: process.env.DATABASE_URL || "postgresql://placeholder:placeholder@localhost:5432/placeholder",
   },
 });
