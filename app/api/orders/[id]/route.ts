@@ -1,20 +1,21 @@
-import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { NextRequest, NextResponse } from 'next/server';
+import { auth } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
 
 // GET /api/orders/[id] - Get a specific order
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+interface RouteParams {
+  params: Promise<{ id: string }>;
+}
+
+export async function GET(request: NextRequest, context: RouteParams) {
   try {
     const session = await auth();
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { id } = await params;
+    const { id } = await context.params;
 
     const order = await prisma.order.findFirst({
       where: {
@@ -28,7 +29,7 @@ export async function GET(
               include: {
                 images: {
                   take: 1,
-                  orderBy: { position: "asc" },
+                  orderBy: { position: 'asc' },
                 },
                 brand: true,
               },
@@ -42,32 +43,29 @@ export async function GET(
     });
 
     if (!order) {
-      return NextResponse.json({ error: "Order not found" }, { status: 404 });
+      return NextResponse.json({ error: 'Order not found' }, { status: 404 });
     }
 
     return NextResponse.json(order);
   } catch (error) {
-    console.error("Error fetching order:", error);
+    console.error('Error fetching order:', error);
     return NextResponse.json(
-      { error: "Failed to fetch order" },
+      { error: 'Failed to fetch order' },
       { status: 500 }
     );
   }
 }
 
 // PATCH /api/orders/[id] - Update order (cancel order)
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PATCH(request: NextRequest, context: RouteParams) {
   try {
     const session = await auth();
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { id } = await params;
+    const { id } = await context.params;
     const body = await request.json();
     const { action } = body;
 
@@ -83,15 +81,15 @@ export async function PATCH(
     });
 
     if (!order) {
-      return NextResponse.json({ error: "Order not found" }, { status: 404 });
+      return NextResponse.json({ error: 'Order not found' }, { status: 404 });
     }
 
     // Handle cancel action
-    if (action === "cancel") {
+    if (action === 'cancel') {
       // Check if order can be cancelled
-      if (order.status !== "PENDING" && order.status !== "PROCESSING") {
+      if (order.status !== 'PENDING' && order.status !== 'PROCESSING') {
         return NextResponse.json(
-          { error: "Order cannot be cancelled at this stage" },
+          { error: 'Order cannot be cancelled at this stage' },
           { status: 400 }
         );
       }
@@ -114,7 +112,7 @@ export async function PATCH(
         return await tx.order.update({
           where: { id },
           data: {
-            status: "CANCELLED",
+            status: 'CANCELLED',
           },
           include: {
             items: {
@@ -123,7 +121,7 @@ export async function PATCH(
                   include: {
                     images: {
                       take: 1,
-                      orderBy: { position: "asc" },
+                      orderBy: { position: 'asc' },
                     },
                   },
                 },
@@ -137,11 +135,11 @@ export async function PATCH(
       return NextResponse.json(updatedOrder);
     }
 
-    return NextResponse.json({ error: "Invalid action" }, { status: 400 });
+    return NextResponse.json({ error: 'Invalid action' }, { status: 400 });
   } catch (error) {
-    console.error("Error updating order:", error);
+    console.error('Error updating order:', error);
     return NextResponse.json(
-      { error: "Failed to update order" },
+      { error: 'Failed to update order' },
       { status: 500 }
     );
   }

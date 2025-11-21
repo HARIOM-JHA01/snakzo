@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
@@ -14,10 +14,11 @@ const updateAddressSchema = z.object({
   country: z.string().min(1).optional(),
 });
 
-export async function PATCH(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+interface RouteParams {
+  params: Promise<{ id: string }>;
+}
+
+export async function PATCH(request: NextRequest, context: RouteParams) {
   try {
     const session = await auth();
 
@@ -29,9 +30,10 @@ export async function PATCH(
     const validatedData = updateAddressSchema.parse(body);
 
     // Verify the address belongs to the user
+    const { id } = await context.params;
     const existingAddress = await prisma.address.findFirst({
       where: {
-        id: params.id,
+        id,
         userId: session.user.id,
       },
     });
@@ -46,7 +48,7 @@ export async function PATCH(
         where: {
           userId: session.user.id,
           isDefault: true,
-          id: { not: params.id },
+          id: { not: id },
         },
         data: {
           isDefault: false,
@@ -55,7 +57,7 @@ export async function PATCH(
     }
 
     const updatedAddress = await prisma.address.update({
-      where: { id: params.id },
+      where: { id },
       data: validatedData,
     });
 
@@ -77,10 +79,7 @@ export async function PATCH(
   }
 }
 
-export async function DELETE(
-  request: Request,
-  { params }: { params: { id: string } }
-) {
+export async function DELETE(request: NextRequest, context: RouteParams) {
   try {
     const session = await auth();
 
@@ -89,9 +88,10 @@ export async function DELETE(
     }
 
     // Verify the address belongs to the user
+    const { id } = await context.params;
     const existingAddress = await prisma.address.findFirst({
       where: {
-        id: params.id,
+        id,
         userId: session.user.id,
       },
     });
@@ -101,7 +101,7 @@ export async function DELETE(
     }
 
     await prisma.address.delete({
-      where: { id: params.id },
+      where: { id },
     });
 
     return NextResponse.json({ message: 'Address deleted successfully' });

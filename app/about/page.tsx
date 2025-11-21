@@ -26,7 +26,7 @@ export default function AboutPage() {
       icon: '❤️',
       title: 'Customer Centric',
       description:
-        "Your satisfaction is our priority. We're here for you 24/7.",
+        'Your satisfaction is our priority. We are here for you 24/7.',
       gradient: 'from-pink-500 to-rose-500',
     },
     {
@@ -113,7 +113,7 @@ export default function AboutPage() {
                 E-Commerce
               </h1>
               <p className="mt-6 text-lg text-muted-foreground animate-slide-in-left delay-100">
-                We're on a mission to make premium products accessible to
+                We are on a mission to make premium products accessible to
                 everyone. Founded in 2020, Snakzo has grown from a small startup
                 to a trusted destination for quality goods and exceptional
                 service.

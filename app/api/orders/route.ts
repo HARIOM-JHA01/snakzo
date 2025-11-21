@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { generateOrderNumber } from '@/lib/order-utils';
@@ -57,7 +57,7 @@ export async function GET() {
 }
 
 // POST /api/orders - Create a new order
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const session = await auth();
 

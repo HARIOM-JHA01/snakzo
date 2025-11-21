@@ -27,7 +27,7 @@ export default function VerifyEmailPage() {
             Check your email
           </CardTitle>
           <CardDescription className="text-center">
-            We've sent you a verification link
+            We have sent you a verification link
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">

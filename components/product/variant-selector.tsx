@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
+import { useState } from 'react';
+import { Badge } from '@/components/ui/badge';
+import { cn } from '@/lib/utils';
 
 interface ProductVariant {
   id: string;
@@ -25,6 +25,9 @@ export default function VariantSelector({
   onVariantChange,
 }: VariantSelectorProps) {
   const [selectedVariant, setSelectedVariant] = useState<string | null>(null);
+  const [selectedOptions, setSelectedOptions] = useState<
+    Record<string, string>
+  >({});
 
   if (!variants || variants.length === 0) {
     return null;
@@ -42,10 +45,6 @@ export default function VariantSelector({
       variants.map((v) => v.options[type]).filter(Boolean)
     );
   });
-
-  const [selectedOptions, setSelectedOptions] = useState<
-    Record<string, string>
-  >({});
 
   const handleOptionSelect = (optionType: string, value: string) => {
     const newSelectedOptions = {
@@ -124,11 +123,11 @@ export default function VariantSelector({
                   }
                   disabled={isOutOfStock}
                   className={cn(
-                    "px-4 py-2 rounded-md border-2 transition-all font-medium text-sm",
+                    'px-4 py-2 rounded-md border-2 transition-all font-medium text-sm',
                     isSelected
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-muted hover:border-foreground",
-                    isOutOfStock && "opacity-50 cursor-not-allowed line-through"
+                      ? 'border-primary bg-primary text-primary-foreground'
+                      : 'border-muted hover:border-foreground',
+                    isOutOfStock && 'opacity-50 cursor-not-allowed line-through'
                   )}
                 >
                   {value}

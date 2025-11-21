@@ -1,20 +1,21 @@
-import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { NextRequest, NextResponse } from 'next/server';
+import { auth } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
 
 // GET /api/addresses/[id] - Get a specific address
-export async function GET(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+interface RouteParams {
+  params: Promise<{ id: string }>;
+}
+
+export async function GET(request: NextRequest, context: RouteParams) {
   try {
     const session = await auth();
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { id } = await params;
+    const { id } = await context.params;
 
     const address = await prisma.address.findFirst({
       where: {
@@ -24,32 +25,29 @@ export async function GET(
     });
 
     if (!address) {
-      return NextResponse.json({ error: "Address not found" }, { status: 404 });
+      return NextResponse.json({ error: 'Address not found' }, { status: 404 });
     }
 
     return NextResponse.json(address);
   } catch (error) {
-    console.error("Error fetching address:", error);
+    console.error('Error fetching address:', error);
     return NextResponse.json(
-      { error: "Failed to fetch address" },
+      { error: 'Failed to fetch address' },
       { status: 500 }
     );
   }
 }
 
 // PATCH /api/addresses/[id] - Update an address
-export async function PATCH(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function PATCH(request: NextRequest, context: RouteParams) {
   try {
     const session = await auth();
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { id } = await params;
+    const { id } = await context.params;
     const body = await request.json();
 
     // Verify address ownership
@@ -61,7 +59,7 @@ export async function PATCH(
     });
 
     if (!existingAddress) {
-      return NextResponse.json({ error: "Address not found" }, { status: 404 });
+      return NextResponse.json({ error: 'Address not found' }, { status: 404 });
     }
 
     // If setting as default, unset all other default addresses
@@ -95,27 +93,24 @@ export async function PATCH(
 
     return NextResponse.json(address);
   } catch (error) {
-    console.error("Error updating address:", error);
+    console.error('Error updating address:', error);
     return NextResponse.json(
-      { error: "Failed to update address" },
+      { error: 'Failed to update address' },
       { status: 500 }
     );
   }
 }
 
 // DELETE /api/addresses/[id] - Delete an address
-export async function DELETE(
-  request: Request,
-  { params }: { params: Promise<{ id: string }> }
-) {
+export async function DELETE(request: NextRequest, context: RouteParams) {
   try {
     const session = await auth();
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
-    const { id } = await params;
+    const { id } = await context.params;
 
     // Verify address ownership
     const address = await prisma.address.findFirst({
@@ -126,7 +121,7 @@ export async function DELETE(
     });
 
     if (!address) {
-      return NextResponse.json({ error: "Address not found" }, { status: 404 });
+      return NextResponse.json({ error: 'Address not found' }, { status: 404 });
     }
 
     // Delete the address
@@ -134,11 +129,11 @@ export async function DELETE(
       where: { id },
     });
 
-    return NextResponse.json({ message: "Address deleted successfully" });
+    return NextResponse.json({ message: 'Address deleted successfully' });
   } catch (error) {
-    console.error("Error deleting address:", error);
+    console.error('Error deleting address:', error);
     return NextResponse.json(
-      { error: "Failed to delete address" },
+      { error: 'Failed to delete address' },
       { status: 500 }
     );
   }

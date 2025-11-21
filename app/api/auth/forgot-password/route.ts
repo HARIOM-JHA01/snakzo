@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
 import crypto from 'crypto';
@@ -8,7 +8,7 @@ const forgotPasswordSchema = z.object({
   email: z.string().email('Invalid email address'),
 });
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
     const { email } = forgotPasswordSchema.parse(body);

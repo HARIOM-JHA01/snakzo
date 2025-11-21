@@ -1,6 +1,6 @@
 // Cart utility functions
 
-interface CartItem {
+export interface CartItem {
   id: string;
   quantity: number;
   product: {
@@ -65,9 +65,9 @@ export function getCartItemCount(items: CartItem[]): number {
 
 // Format price to Indian Rupee
 export function formatPrice(amount: number): string {
-  return new Intl.NumberFormat("en-IN", {
-    style: "currency",
-    currency: "INR",
+  return new Intl.NumberFormat('en-IN', {
+    style: 'currency',
+    currency: 'INR',
     minimumFractionDigits: 2,
     maximumFractionDigits: 2,
   }).format(amount);
@@ -102,7 +102,7 @@ export function validateQuantity(
     return {
       isValid: false,
       maxQuantity: 1,
-      message: "Quantity must be at least 1",
+      message: 'Quantity must be at least 1',
     };
   }
 
@@ -121,37 +121,43 @@ export function validateQuantity(
 }
 
 // Merge guest cart from localStorage with user cart
-export function getGuestCart(): any[] {
-  if (typeof window === "undefined") return [];
+export interface GuestCartItem {
+  productId: string;
+  variantId?: string | null;
+  quantity: number;
+}
+
+export function getGuestCart(): GuestCartItem[] {
+  if (typeof window === 'undefined') return [];
 
   try {
-    const guestCart = localStorage.getItem("guestCart");
+    const guestCart = localStorage.getItem('guestCart');
     return guestCart ? JSON.parse(guestCart) : [];
   } catch (error) {
-    console.error("Error reading guest cart:", error);
+    console.error('Error reading guest cart:', error);
     return [];
   }
 }
 
 // Clear guest cart from localStorage
 export function clearGuestCart(): void {
-  if (typeof window === "undefined") return;
+  if (typeof window === 'undefined') return;
 
   try {
-    localStorage.removeItem("guestCart");
+    localStorage.removeItem('guestCart');
   } catch (error) {
-    console.error("Error clearing guest cart:", error);
+    console.error('Error clearing guest cart:', error);
   }
 }
 
 // Save guest cart to localStorage
-export function saveGuestCart(items: any[]): void {
-  if (typeof window === "undefined") return;
+export function saveGuestCart(items: GuestCartItem[]): void {
+  if (typeof window === 'undefined') return;
 
   try {
-    localStorage.setItem("guestCart", JSON.stringify(items));
+    localStorage.setItem('guestCart', JSON.stringify(items));
   } catch (error) {
-    console.error("Error saving guest cart:", error);
+    console.error('Error saving guest cart:', error);
   }
 }
 

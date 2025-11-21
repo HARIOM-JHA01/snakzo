@@ -1,4 +1,4 @@
-"use client";
+'use client';
 
 import {
   createContext,
@@ -7,10 +7,15 @@ import {
   useEffect,
   useCallback,
   ReactNode,
-} from "react";
-import { useSession } from "next-auth/react";
-import { toast } from "sonner";
-import { getGuestCart, saveGuestCart, clearGuestCart } from "@/lib/cart-utils";
+} from 'react';
+import { useSession } from 'next-auth/react';
+import { toast } from 'sonner';
+import {
+  getGuestCart,
+  saveGuestCart,
+  clearGuestCart,
+  GuestCartItem,
+} from '@/lib/cart-utils';
 
 interface CartItem {
   id: string;
@@ -65,7 +70,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
   // Fetch cart from API
   const fetchCart = useCallback(async () => {
-    if (status === "loading") return;
+    if (status === 'loading') return;
 
     if (!session) {
       setIsLoading(false);
@@ -73,13 +78,13 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
 
     try {
-      const response = await fetch("/api/cart");
+      const response = await fetch('/api/cart');
       if (response.ok) {
         const data = await response.json();
         setCart(data);
       }
     } catch (error) {
-      console.error("Error fetching cart:", error);
+      console.error('Error fetching cart:', error);
     } finally {
       setIsLoading(false);
     }
@@ -92,10 +97,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
     if (guestCartItems.length === 0) return;
 
     try {
-      const response = await fetch("/api/cart/merge", {
-        method: "POST",
+      const response = await fetch('/api/cart/merge', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ guestCartItems }),
       });
@@ -110,17 +115,17 @@ export function CartProvider({ children }: { children: ReactNode }) {
             description: data.errors[0],
           });
         } else {
-          toast.success("Cart items merged successfully");
+          toast.success('Cart items merged successfully');
         }
       }
     } catch (error) {
-      console.error("Error merging cart:", error);
+      console.error('Error merging cart:', error);
     }
   }, []);
 
   // Initial load and merge
   useEffect(() => {
-    if (status === "loading") return;
+    if (status === 'loading') return;
 
     if (session) {
       // Merge guest cart if exists
@@ -145,7 +150,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       // Add to guest cart (localStorage)
       const guestCart = getGuestCart();
       const existingItemIndex = guestCart.findIndex(
-        (item: any) =>
+        (item: GuestCartItem) =>
           item.productId === productId && item.variantId === variantId
       );
 
@@ -160,15 +165,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
       }
 
       saveGuestCart(guestCart);
-      toast.success("Added to cart");
+      toast.success('Added to cart');
       return;
     }
 
     try {
-      const response = await fetch("/api/cart", {
-        method: "POST",
+      const response = await fetch('/api/cart', {
+        method: 'POST',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({
           productId,
@@ -179,15 +184,15 @@ export function CartProvider({ children }: { children: ReactNode }) {
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || "Failed to add to cart");
+        throw new Error(error.error || 'Failed to add to cart');
       }
 
       await fetchCart();
-      toast.success("Added to cart");
+      toast.success('Added to cart');
     } catch (error) {
-      console.error("Error adding to cart:", error);
+      console.error('Error adding to cart:', error);
       toast.error(
-        error instanceof Error ? error.message : "Failed to add to cart"
+        error instanceof Error ? error.message : 'Failed to add to cart'
       );
       throw error;
     }
@@ -196,29 +201,29 @@ export function CartProvider({ children }: { children: ReactNode }) {
   // Update quantity
   const updateQuantity = async (itemId: string, quantity: number) => {
     if (!session) {
-      toast.error("Please login to manage your cart");
+      toast.error('Please login to manage your cart');
       return;
     }
 
     try {
       const response = await fetch(`/api/cart/${itemId}`, {
-        method: "PATCH",
+        method: 'PATCH',
         headers: {
-          "Content-Type": "application/json",
+          'Content-Type': 'application/json',
         },
         body: JSON.stringify({ quantity }),
       });
 
       if (!response.ok) {
         const error = await response.json();
-        throw new Error(error.error || "Failed to update quantity");
+        throw new Error(error.error || 'Failed to update quantity');
       }
 
       await fetchCart();
     } catch (error) {
-      console.error("Error updating quantity:", error);
+      console.error('Error updating quantity:', error);
       toast.error(
-        error instanceof Error ? error.message : "Failed to update quantity"
+        error instanceof Error ? error.message : 'Failed to update quantity'
       );
       throw error;
     }
@@ -227,24 +232,24 @@ export function CartProvider({ children }: { children: ReactNode }) {
   // Remove from cart
   const removeFromCart = async (itemId: string) => {
     if (!session) {
-      toast.error("Please login to manage your cart");
+      toast.error('Please login to manage your cart');
       return;
     }
 
     try {
       const response = await fetch(`/api/cart/${itemId}`, {
-        method: "DELETE",
+        method: 'DELETE',
       });
 
       if (!response.ok) {
-        throw new Error("Failed to remove item");
+        throw new Error('Failed to remove item');
       }
 
       await fetchCart();
-      toast.success("Item removed from cart");
+      toast.success('Item removed from cart');
     } catch (error) {
-      console.error("Error removing from cart:", error);
-      toast.error("Failed to remove item from cart");
+      console.error('Error removing from cart:', error);
+      toast.error('Failed to remove item from cart');
       throw error;
     }
   };
@@ -253,24 +258,24 @@ export function CartProvider({ children }: { children: ReactNode }) {
   const clearCart = async () => {
     if (!session) {
       clearGuestCart();
-      toast.success("Cart cleared");
+      toast.success('Cart cleared');
       return;
     }
 
     try {
-      const response = await fetch("/api/cart", {
-        method: "DELETE",
+      const response = await fetch('/api/cart', {
+        method: 'DELETE',
       });
 
       if (!response.ok) {
-        throw new Error("Failed to clear cart");
+        throw new Error('Failed to clear cart');
       }
 
       await fetchCart();
-      toast.success("Cart cleared");
+      toast.success('Cart cleared');
     } catch (error) {
-      console.error("Error clearing cart:", error);
-      toast.error("Failed to clear cart");
+      console.error('Error clearing cart:', error);
+      toast.error('Failed to clear cart');
       throw error;
     }
   };
@@ -296,7 +301,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
 export function useCart() {
   const context = useContext(CartContext);
   if (context === undefined) {
-    throw new Error("useCart must be used within a CartProvider");
+    throw new Error('useCart must be used within a CartProvider');
   }
   return context;
 }

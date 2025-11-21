@@ -1,8 +1,9 @@
-"use client";
+'use client';
 
-import { useEffect } from "react";
-import { Button } from "@/components/ui/button";
-import { AlertCircle } from "lucide-react";
+import { useEffect } from 'react';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { AlertCircle } from 'lucide-react';
 
 export default function Error({
   error,
@@ -13,7 +14,7 @@ export default function Error({
 }) {
   useEffect(() => {
     // Log the error to an error reporting service
-    console.error("Error:", error);
+    console.error('Error:', error);
   }, [error]);
 
   return (
@@ -37,7 +38,7 @@ export default function Error({
         <div className="flex gap-3 justify-center">
           <Button onClick={() => reset()}>Try again</Button>
           <Button variant="outline" asChild>
-            <a href="/">Go home</a>
+            <Link href="/">Go home</Link>
           </Button>
         </div>
       </div>

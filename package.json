@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "analyze": "ANALYZE=true next build --webpack",
-    "lint": "eslint",
+    "lint": "eslint . --quiet",
     "type-check": "tsc --noEmit",
     "test": "echo 'Tests will be added in future' && exit 0",
     "test:watch": "echo 'Tests will be added in future'",

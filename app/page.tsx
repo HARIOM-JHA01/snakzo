@@ -1,30 +1,30 @@
-import Image from "next/image";
-import Navbar from "@/components/navbar";
-import Hero from "@/components/hero";
-import { DbProductCard } from "@/components/product/db-product-card";
-import Newsletter from "@/components/newsletter";
-import Footer from "@/components/footer";
-import { Button } from "@/components/ui/button";
-import { Badge } from "@/components/ui/badge";
-import { prisma } from "@/lib/prisma";
-import { formatPrice } from "@/lib/cart-utils";
-import Link from "next/link";
-import { StructuredData } from "@/components/seo/structured-data";
+import Image from 'next/image';
+import Navbar from '@/components/navbar';
+import Hero from '@/components/hero';
+import { DbProductCard } from '@/components/product/db-product-card';
+import Newsletter from '@/components/newsletter';
+import Footer from '@/components/footer';
+import { Button } from '@/components/ui/button';
+import { Badge } from '@/components/ui/badge';
+import { prisma } from '@/lib/prisma';
+import { formatPrice } from '@/lib/cart-utils';
+import Link from 'next/link';
+import { StructuredData } from '@/components/seo/structured-data';
 import {
   generateOrganizationSchema,
   generateWebsiteSchema,
-} from "@/lib/structured-data";
+} from '@/lib/structured-data';
 
 // Category icon mapping
 const categoryIcons: Record<string, { icon: string; color: string }> = {
-  Electronics: { icon: "⚡", color: "from-blue-500 to-cyan-500" },
-  Fashion: { icon: "👕", color: "from-pink-500 to-rose-500" },
-  "Home & Living": { icon: "🏠", color: "from-green-500 to-emerald-500" },
-  Sports: { icon: "⚽", color: "from-orange-500 to-amber-500" },
-  Beauty: { icon: "💄", color: "from-pink-400 to-rose-400" },
-  Books: { icon: "📚", color: "from-indigo-400 to-purple-400" },
-  Toys: { icon: "🧸", color: "from-yellow-500 to-orange-400" },
-  default: { icon: "🛍️", color: "from-gray-500 to-slate-500" },
+  Electronics: { icon: '⚡', color: 'from-blue-500 to-cyan-500' },
+  Fashion: { icon: '👕', color: 'from-pink-500 to-rose-500' },
+  'Home & Living': { icon: '🏠', color: 'from-green-500 to-emerald-500' },
+  Sports: { icon: '⚽', color: 'from-orange-500 to-amber-500' },
+  Beauty: { icon: '💄', color: 'from-pink-400 to-rose-400' },
+  Books: { icon: '📚', color: 'from-indigo-400 to-purple-400' },
+  Toys: { icon: '🧸', color: 'from-yellow-500 to-orange-400' },
+  default: { icon: '🛍️', color: 'from-gray-500 to-slate-500' },
 };
 
 export default async function Home() {
@@ -35,7 +35,7 @@ export default async function Home() {
     },
     include: {
       images: {
-        orderBy: { position: "asc" },
+        orderBy: { position: 'asc' },
         take: 1,
       },
       category: {
@@ -45,7 +45,7 @@ export default async function Home() {
         select: { name: true },
       },
     },
-    orderBy: [{ isFeatured: "desc" }, { createdAt: "desc" }],
+    orderBy: [{ isFeatured: 'desc' }, { createdAt: 'desc' }],
     take: 8,
   });
 
@@ -66,7 +66,7 @@ export default async function Home() {
     },
     orderBy: {
       products: {
-        _count: "desc",
+        _count: 'desc',
       },
     },
     take: 4,
@@ -74,28 +74,28 @@ export default async function Home() {
 
   const features = [
     {
-      icon: "🚚",
-      title: "Free Shipping",
-      description: "On orders over $50",
-      gradient: "from-blue-500 to-indigo-500",
+      icon: '🚚',
+      title: 'Free Shipping',
+      description: 'On orders over $50',
+      gradient: 'from-blue-500 to-indigo-500',
     },
     {
-      icon: "🔒",
-      title: "Secure Payment",
-      description: "100% protected transactions",
-      gradient: "from-purple-500 to-pink-500",
+      icon: '🔒',
+      title: 'Secure Payment',
+      description: '100% protected transactions',
+      gradient: 'from-purple-500 to-pink-500',
     },
     {
-      icon: "↩️",
-      title: "Easy Returns",
-      description: "30-day return policy",
-      gradient: "from-green-500 to-teal-500",
+      icon: '↩️',
+      title: 'Easy Returns',
+      description: '30-day return policy',
+      gradient: 'from-green-500 to-teal-500',
     },
     {
-      icon: "💎",
-      title: "Premium Quality",
-      description: "Curated products only",
-      gradient: "from-orange-500 to-red-500",
+      icon: '💎',
+      title: 'Premium Quality',
+      description: 'Curated products only',
+      gradient: 'from-orange-500 to-red-500',
     },
   ];
 
@@ -256,7 +256,7 @@ export default async function Home() {
                 </span>
               </h2>
               <p className="text-lg text-muted-foreground">
-                Don't miss out on amazing deals on your favorite products.
+                Do not miss out on amazing deals on your favorite products.
                 Limited time only - while stocks last!
               </p>
               <div className="flex gap-4 pt-4">

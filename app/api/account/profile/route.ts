@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
@@ -8,7 +8,7 @@ const profileSchema = z.object({
   email: z.string().email('Invalid email address'),
 });
 
-export async function PATCH(request: Request) {
+export async function PATCH(request: NextRequest) {
   try {
     const session = await auth();
 

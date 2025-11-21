@@ -1,15 +1,15 @@
-import { siteConfig } from "./seo";
+import { siteConfig } from './seo';
 
 export function generateOrganizationSchema() {
   return {
-    "@context": "https://schema.org",
-    "@type": "Organization",
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
     name: siteConfig.name,
     url: siteConfig.url,
     logo: `${siteConfig.url}/logo.png`,
     description: siteConfig.description,
     sameAs: [
-      `https://twitter.com/${siteConfig.twitter.replace("@", "")}`,
+      `https://twitter.com/${siteConfig.twitter.replace('@', '')}`,
       `https://facebook.com/${siteConfig.name.toLowerCase()}`,
     ],
   };
@@ -17,18 +17,18 @@ export function generateOrganizationSchema() {
 
 export function generateWebsiteSchema() {
   return {
-    "@context": "https://schema.org",
-    "@type": "WebSite",
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
     name: siteConfig.name,
     url: siteConfig.url,
     description: siteConfig.description,
     potentialAction: {
-      "@type": "SearchAction",
+      '@type': 'SearchAction',
       target: {
-        "@type": "EntryPoint",
+        '@type': 'EntryPoint',
         urlTemplate: `${siteConfig.url}/search?q={search_term_string}`,
       },
-      "query-input": "required name=search_term_string",
+      'query-input': 'required name=search_term_string',
     },
   };
 }
@@ -38,8 +38,8 @@ export function generateProductSchema({
   description,
   image,
   price,
-  currency = "INR",
-  availability = "InStock",
+  currency = 'INR',
+  availability = 'InStock',
   brand,
   category,
   sku,
@@ -60,16 +60,16 @@ export function generateProductSchema({
   reviewCount?: number;
   url: string;
 }) {
-  const schema: any = {
-    "@context": "https://schema.org",
-    "@type": "Product",
+  const schema: Record<string, unknown> = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
     name,
     description,
     image,
     url,
-    sku: sku || name.toLowerCase().replace(/\s+/g, "-"),
+    sku: sku || name.toLowerCase().replace(/\s+/g, '-'),
     offers: {
-      "@type": "Offer",
+      '@type': 'Offer',
       url,
       priceCurrency: currency,
       price: price.toFixed(2),
@@ -82,7 +82,7 @@ export function generateProductSchema({
 
   if (brand) {
     schema.brand = {
-      "@type": "Brand",
+      '@type': 'Brand',
       name: brand,
     };
   }
@@ -93,7 +93,7 @@ export function generateProductSchema({
 
   if (rating && reviewCount) {
     schema.aggregateRating = {
-      "@type": "AggregateRating",
+      '@type': 'AggregateRating',
       ratingValue: rating,
       reviewCount,
       bestRating: 5,
@@ -108,10 +108,10 @@ export function generateBreadcrumbSchema(
   items: { name: string; url: string }[]
 ) {
   return {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
     itemListElement: items.map((item, index) => ({
-      "@type": "ListItem",
+      '@type': 'ListItem',
       position: index + 1,
       name: item.name,
       item: item.url,
@@ -132,18 +132,18 @@ export function generateReviewSchema({
   }>;
 }) {
   return reviews.map((review) => ({
-    "@context": "https://schema.org",
-    "@type": "Review",
+    '@context': 'https://schema.org',
+    '@type': 'Review',
     itemReviewed: {
-      "@type": "Product",
+      '@type': 'Product',
       name: productName,
     },
     author: {
-      "@type": "Person",
+      '@type': 'Person',
       name: review.author,
     },
     reviewRating: {
-      "@type": "Rating",
+      '@type': 'Rating',
       ratingValue: review.rating,
       bestRating: 5,
       worstRating: 1,

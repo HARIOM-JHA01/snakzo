@@ -1,6 +1,6 @@
-import { NextResponse } from "next/server";
-import { auth } from "@/lib/auth";
-import { prisma } from "@/lib/prisma";
+import { NextRequest, NextResponse } from 'next/server';
+import { auth } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
 
 // GET /api/addresses - Get all addresses for the logged-in user
 export async function GET() {
@@ -8,33 +8,33 @@ export async function GET() {
     const session = await auth();
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const addresses = await prisma.address.findMany({
       where: {
         userId: session.user.id,
       },
-      orderBy: { isDefault: "desc" },
+      orderBy: { isDefault: 'desc' },
     });
 
     return NextResponse.json(addresses);
   } catch (error) {
-    console.error("Error fetching addresses:", error);
+    console.error('Error fetching addresses:', error);
     return NextResponse.json(
-      { error: "Failed to fetch addresses" },
+      { error: 'Failed to fetch addresses' },
       { status: 500 }
     );
   }
 }
 
 // POST /api/addresses - Create a new address
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const session = await auth();
 
     if (!session?.user?.id) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }
 
     const body = await request.json();
@@ -60,7 +60,7 @@ export async function POST(request: Request) {
       !country
     ) {
       return NextResponse.json(
-        { error: "All address fields are required" },
+        { error: 'All address fields are required' },
         { status: 400 }
       );
     }
@@ -95,9 +95,9 @@ export async function POST(request: Request) {
 
     return NextResponse.json(address, { status: 201 });
   } catch (error) {
-    console.error("Error creating address:", error);
+    console.error('Error creating address:', error);
     return NextResponse.json(
-      { error: "Failed to create address" },
+      { error: 'Failed to create address' },
       { status: 500 }
     );
   }

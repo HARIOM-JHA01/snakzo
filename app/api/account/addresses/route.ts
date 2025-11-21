@@ -1,4 +1,4 @@
-import { NextResponse } from 'next/server';
+import { NextRequest, NextResponse } from 'next/server';
 import { auth } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
 import { z } from 'zod';
@@ -14,7 +14,7 @@ const addressSchema = z.object({
   isDefault: z.boolean().optional(),
 });
 
-export async function GET(request: Request) {
+export async function GET(request: NextRequest) {
   try {
     const session = await auth();
 
@@ -37,7 +37,7 @@ export async function GET(request: Request) {
   }
 }
 
-export async function POST(request: Request) {
+export async function POST(request: NextRequest) {
   try {
     const session = await auth();
 
