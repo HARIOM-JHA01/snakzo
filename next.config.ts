@@ -1,24 +1,30 @@
-import { withSentryConfig } from "@sentry/nextjs";
-import type { NextConfig } from "next";
-import withBundleAnalyzer from "@next/bundle-analyzer";
+import { withSentryConfig } from '@sentry/nextjs';
+import type { NextConfig } from 'next';
+import withBundleAnalyzer from '@next/bundle-analyzer';
 
 const nextConfig: NextConfig = {
   images: {
     remotePatterns: [
       {
-        protocol: "https",
-        hostname: "picsum.photos",
-        port: "",
-        pathname: "/**",
+        protocol: 'https',
+        hostname: 'picsum.photos',
+        port: '',
+        pathname: '/**',
+      },
+      {
+        protocol: 'https',
+        hostname: 'res.cloudinary.com',
+        port: '',
+        pathname: '/**',
       },
     ],
-    formats: ["image/avif", "image/webp"],
+    formats: ['image/avif', 'image/webp'],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
   },
   // Enable experimental features for better performance
   experimental: {
-    optimizePackageImports: ["lucide-react", "@radix-ui/react-icons"],
+    optimizePackageImports: ['lucide-react', '@radix-ui/react-icons'],
   },
   // Compress output
   compress: true,
@@ -29,7 +35,7 @@ const nextConfig: NextConfig = {
 };
 
 const withBundle = withBundleAnalyzer({
-  enabled: process.env.ANALYZE === "true",
+  enabled: process.env.ANALYZE === 'true',
 });
 
 export default withBundle(
@@ -37,9 +43,9 @@ export default withBundle(
     // For all available options, see:
     // https://www.npmjs.com/package/@sentry/webpack-plugin#options
 
-    org: "nothing-again",
+    org: 'nothing-again',
 
-    project: "quickhaat",
+    project: 'quickhaat',
 
     // Only print logs for uploading source maps in CI
     silent: !process.env.CI,
@@ -54,7 +60,7 @@ export default withBundle(
     // This can increase your server load as well as your hosting bill.
     // Note: Check that the configured route will not match with your Next.js middleware, otherwise reporting of client-
     // side errors will fail.
-    tunnelRoute: "/monitoring",
+    tunnelRoute: '/monitoring',
 
     // Automatically tree-shake Sentry logger statements to reduce bundle size
     disableLogger: true,

@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm } from 'react-hook-form';
@@ -77,6 +77,8 @@ export function ProductForm({ product, categories, brands }: ProductFormProps) {
     })) || []
   );
   const [imageUrl, setImageUrl] = useState('');
+  const [uploading, setUploading] = useState(false);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
   const form = useForm<ProductFormValues>({
     resolver: zodResolver(productFormSchema),
@@ -156,6 +158,37 @@ export function ProductForm({ product, categories, brands }: ProductFormProps) {
 
     setImages([...images, { url: imageUrl, position: images.length }]);
     setImageUrl('');
+  };
+
+  const uploadFiles = async (files: FileList | null) => {
+    if (!files || files.length === 0) return;
+    const toUpload = Array.from(files);
+    setUploading(true);
+    try {
+      for (const file of toUpload) {
+        const formData = new FormData();
+        formData.append('file', file);
+
+        const response = await fetch('/api/admin/upload-image', {
+          method: 'POST',
+          body: formData,
+        });
+        const data = await response.json();
+        if (!response.ok) {
+          throw new Error(data?.error || 'Upload failed');
+        }
+
+        setImages((prev) => [
+          ...prev,
+          { url: data.url as string, position: prev.length, altText: '' },
+        ]);
+      }
+    } catch (error: any) {
+      console.error('Upload failed', error);
+      toast.error(error.message || 'Upload failed');
+    } finally {
+      setUploading(false);
+    }
   };
 
   const removeImage = (index: number) => {
@@ -391,6 +424,24 @@ export function ProductForm({ product, categories, brands }: ProductFormProps) {
                   <Button type="button" onClick={addImage} variant="outline">
                     <Plus className="h-4 w-4 mr-2" />
                     Add
+                  </Button>
+                  {/* File upload */}
+                  <input
+                    type="file"
+                    accept="image/*"
+                    ref={fileInputRef}
+                    className="hidden"
+                    multiple
+                    onChange={(e) => uploadFiles(e.target.files)}
+                  />
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    onClick={() => fileInputRef.current?.click()}
+                    disabled={uploading}
+                  >
+                    <Upload className="h-4 w-4 mr-2" />
+                    {uploading ? 'Uploading…' : 'Upload File'}
                   </Button>
                 </div>
 
