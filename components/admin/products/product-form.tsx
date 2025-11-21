@@ -89,8 +89,8 @@ export function ProductForm({ product, categories, brands }: ProductFormProps) {
       sku: product?.sku || '',
       barcode: product?.barcode || '',
       quantity: product?.quantity || 0,
-      categoryId: product?.categoryId || '',
-      brandId: product?.brandId || '',
+      categoryId: product?.categoryId || undefined,
+      brandId: product?.brandId || undefined,
       isActive: product?.isActive ?? true,
       isFeatured: product?.isFeatured ?? false,
     },
@@ -229,6 +229,13 @@ export function ProductForm({ product, categories, brands }: ProductFormProps) {
                             step="0.01"
                             placeholder="0.00"
                             {...field}
+                            value={field.value ?? ''}
+                            onChange={(e) => {
+                              const v = e.target.value;
+                              field.onChange(
+                                v === '' ? undefined : parseFloat(v)
+                              );
+                            }}
                           />
                         </FormControl>
                         <FormMessage />
@@ -248,6 +255,13 @@ export function ProductForm({ product, categories, brands }: ProductFormProps) {
                             step="0.01"
                             placeholder="0.00"
                             {...field}
+                            value={field.value ?? ''}
+                            onChange={(e) => {
+                              const v = e.target.value;
+                              field.onChange(
+                                v === '' ? undefined : parseFloat(v)
+                              );
+                            }}
                           />
                         </FormControl>
                         <FormDescription>
@@ -270,6 +284,13 @@ export function ProductForm({ product, categories, brands }: ProductFormProps) {
                             step="0.01"
                             placeholder="0.00"
                             {...field}
+                            value={field.value ?? ''}
+                            onChange={(e) => {
+                              const v = e.target.value;
+                              field.onChange(
+                                v === '' ? undefined : parseFloat(v)
+                              );
+                            }}
                           />
                         </FormControl>
                         <FormDescription>
@@ -326,7 +347,19 @@ export function ProductForm({ product, categories, brands }: ProductFormProps) {
                       <FormItem>
                         <FormLabel>Quantity</FormLabel>
                         <FormControl>
-                          <Input type="number" placeholder="0" {...field} />
+                          {/* Ensure quantity is stored as a number */}
+                          <Input
+                            type="number"
+                            placeholder="0"
+                            {...field}
+                            value={field.value ?? ''}
+                            onChange={(e) => {
+                              const v = e.target.value;
+                              field.onChange(
+                                v === '' ? undefined : parseInt(v, 10)
+                              );
+                            }}
+                          />
                         </FormControl>
                         <FormMessage />
                       </FormItem>
@@ -407,7 +440,7 @@ export function ProductForm({ product, categories, brands }: ProductFormProps) {
                       <FormLabel>Category</FormLabel>
                       <Select
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        value={field.value}
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -415,7 +448,7 @@ export function ProductForm({ product, categories, brands }: ProductFormProps) {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="">No category</SelectItem>
+                          {/* No explicit empty-value item — leave empty selection to show placeholder */}
                           {categories.map((category) => (
                             <SelectItem key={category.id} value={category.id}>
                               {category.name}
@@ -436,7 +469,7 @@ export function ProductForm({ product, categories, brands }: ProductFormProps) {
                       <FormLabel>Brand</FormLabel>
                       <Select
                         onValueChange={field.onChange}
-                        defaultValue={field.value}
+                        value={field.value}
                       >
                         <FormControl>
                           <SelectTrigger>
@@ -444,7 +477,7 @@ export function ProductForm({ product, categories, brands }: ProductFormProps) {
                           </SelectTrigger>
                         </FormControl>
                         <SelectContent>
-                          <SelectItem value="">No brand</SelectItem>
+                          {/* No explicit empty-value item — leave empty selection to show placeholder */}
                           {brands.map((brand) => (
                             <SelectItem key={brand.id} value={brand.id}>
                               {brand.name}

@@ -67,7 +67,7 @@ export function AdminHeader({ user }: AdminHeaderProps) {
             <DropdownMenuItem>Profile</DropdownMenuItem>
             <DropdownMenuItem>Settings</DropdownMenuItem>
             <DropdownMenuSeparator />
-            <DropdownMenuItem asChild>
+            <DropdownMenuItem>
               <SignOutButton />
             </DropdownMenuItem>
           </DropdownMenuContent>
