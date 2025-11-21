@@ -37,7 +37,7 @@ export function OrderDeliveredEmail({
 
       <Section style={{ textAlign: 'center', marginTop: '24px' }}>
         <EmailButton
-          href={`https://quickhaat.com/account/orders/${orderNumber}/review`}
+          href={`https://snakzo.com/account/orders/${orderNumber}/review`}
         >
           Leave a Review
         </EmailButton>
@@ -48,7 +48,7 @@ export function OrderDeliveredEmail({
         our support team. We're here to help!
       </Text>
 
-      <Text style={text}>Thank you for choosing Quickhaat!</Text>
+      <Text style={text}>Thank you for choosing Snakzo!</Text>
     </EmailLayout>
   );
 }

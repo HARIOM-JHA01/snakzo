@@ -2,7 +2,7 @@
 
 ## 📋 Overview
 
-This document describes the complete implementation of the shopping cart functionality for Quickhaat e-commerce platform. The cart system supports both authenticated users (database-backed) and guest users (localStorage-backed) with seamless cart merging on login.
+This document describes the complete implementation of the shopping cart functionality for Snakzo e-commerce platform. The cart system supports both authenticated users (database-backed) and guest users (localStorage-backed) with seamless cart merging on login.
 
 ## ✅ Completed Features
 

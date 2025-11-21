@@ -1,4 +1,4 @@
-# Quickhaat E-commerce Database Documentation
+# Snakzo E-commerce Database Documentation
 
 ## Database Overview
 
@@ -77,7 +77,7 @@ bun run db:reset
 Import the Prisma client from `lib/prisma.ts`:
 
 ```typescript
-import { prisma } from "@/lib/prisma";
+import { prisma } from '@/lib/prisma';
 
 // Example: Fetch all products
 const products = await prisma.product.findMany({
@@ -91,19 +91,19 @@ const products = await prisma.product.findMany({
 // Example: Create a new order
 const order = await prisma.order.create({
   data: {
-    userId: "user-id",
-    addressId: "address-id",
-    orderNumber: "ORD-12345",
-    status: "PENDING",
-    paymentStatus: "PENDING",
-    paymentMethod: "CARD",
+    userId: 'user-id',
+    addressId: 'address-id',
+    orderNumber: 'ORD-12345',
+    status: 'PENDING',
+    paymentStatus: 'PENDING',
+    paymentMethod: 'CARD',
     subtotal: 299.99,
     total: 299.99,
     items: {
       create: [
         {
-          productId: "product-id",
-          name: "Wireless Headphones",
+          productId: 'product-id',
+          name: 'Wireless Headphones',
           quantity: 1,
           price: 299.99,
           total: 299.99,
@@ -122,7 +122,7 @@ The database is seeded with:
 - 3 brands (TechPro, StyleCo, HomeBase)
 - 3 collections (Summer Essentials, Tech Innovations, Urban Style)
 - 8 products with images
-- 1 admin user (email: admin@quickhaat.com)
+- 1 admin user (email: admin@snakzo.com)
 
 ## Environment Variables
 

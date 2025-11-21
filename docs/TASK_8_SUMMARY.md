@@ -2,7 +2,7 @@
 
 ## Overview
 
-Successfully implemented comprehensive performance and SEO optimizations for the Quickhaat e-commerce platform, focusing on search engine visibility, page load performance, and user experience improvements.
+Successfully implemented comprehensive performance and SEO optimizations for the Snakzo e-commerce platform, focusing on search engine visibility, page load performance, and user experience improvements.
 
 ## ✅ Completed Features
 

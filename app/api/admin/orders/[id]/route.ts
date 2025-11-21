@@ -128,7 +128,7 @@ export async function PATCH(
               customerName: order.user.name || 'Customer',
               carrier: 'Standard Shipping', // TODO: Add carrier field to order
               trackingNumber: 'TRK' + order.orderNumber, // TODO: Add tracking number field
-              trackingUrl: `https://quickhaat.com/account/orders/${order.id}`,
+              trackingUrl: `https://snakzo.com/account/orders/${order.id}`,
               estimatedDelivery: new Date(
                 Date.now() + 5 * 24 * 60 * 60 * 1000
               ).toLocaleDateString('en-US', {

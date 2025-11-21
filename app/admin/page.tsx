@@ -9,8 +9,8 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Skeleton } from '@/components/ui/skeleton';
 
 export const metadata = {
-  title: 'Admin Dashboard | Quickhaat',
-  description: 'Admin dashboard for managing Quickhaat e-commerce',
+  title: 'Admin Dashboard | Snakzo',
+  description: 'Admin dashboard for managing Snakzo e-commerce',
 };
 
 async function getDashboardStats() {

@@ -100,7 +100,7 @@ export async function sendPasswordResetEmail(data: {
 }) {
   return await sendEmail({
     to: data.to,
-    subject: 'Reset Your Password - Quickhaat',
+    subject: 'Reset Your Password - Snakzo',
     react: PasswordResetEmail({
       ...data,
       expiresIn: data.expiresIn || '1 hour',
@@ -117,7 +117,7 @@ export async function sendEmailVerificationEmail(data: {
 }) {
   return await sendEmail({
     to: data.to,
-    subject: 'Verify Your Email - Quickhaat',
+    subject: 'Verify Your Email - Snakzo',
     react: EmailVerificationEmail({
       ...data,
       expiresIn: data.expiresIn || '24 hours',
@@ -132,7 +132,7 @@ export async function sendWelcomeEmail(data: {
 }) {
   return await sendEmail({
     to: data.to,
-    subject: 'Welcome to Quickhaat! 🎉',
+    subject: 'Welcome to Snakzo! 🎉',
     react: WelcomeEmail(data),
   });
 }
@@ -144,7 +144,7 @@ export async function sendNewsletterSubscriptionEmail(data: {
 }) {
   return await sendEmail({
     to: data.to,
-    subject: 'Newsletter Subscription Confirmed - Quickhaat',
+    subject: 'Newsletter Subscription Confirmed - Snakzo',
     react: NewsletterSubscriptionEmail(data),
   });
 }

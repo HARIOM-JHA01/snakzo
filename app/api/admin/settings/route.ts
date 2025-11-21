@@ -15,15 +15,18 @@ export async function GET() {
     const settings = await prisma.setting.findMany();
 
     // Convert array to object for easier access
-    const settingsObj = settings.reduce((acc, setting) => {
-      acc[setting.key] = setting.value;
-      return acc;
-    }, {} as Record<string, string>);
+    const settingsObj = settings.reduce(
+      (acc, setting) => {
+        acc[setting.key] = setting.value;
+        return acc;
+      },
+      {} as Record<string, string>
+    );
 
     return NextResponse.json({
       general: {
-        storeName: settingsObj.storeName || 'Quickhaat',
-        storeEmail: settingsObj.storeEmail || 'support@quickhaat.com',
+        storeName: settingsObj.storeName || 'Snakzo',
+        storeEmail: settingsObj.storeEmail || 'support@snakzo.com',
         storePhone: settingsObj.storePhone || '+1 (555) 123-4567',
         storeAddress:
           settingsObj.storeAddress || '123 Main St, City, State 12345',

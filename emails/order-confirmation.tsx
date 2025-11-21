@@ -149,9 +149,7 @@ export function OrderConfirmationEmail({
       </Section>
 
       <Section style={{ textAlign: 'center', marginTop: '32px' }}>
-        <EmailButton
-          href={`https://quickhaat.com/account/orders/${orderNumber}`}
-        >
+        <EmailButton href={`https://snakzo.com/account/orders/${orderNumber}`}>
           View Order Details
         </EmailButton>
       </Section>

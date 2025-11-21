@@ -60,7 +60,7 @@ jobs:
         run: npm install -g pa11y-ci
 
       - name: Run accessibility tests
-        run: pa11y-ci --sitemap https://quickhaat.vercel.app/sitemap.xml
+        run: pa11y-ci --sitemap https://snakzo.vercel.app/sitemap.xml
         continue-on-error: true
 
   bundle-analysis:

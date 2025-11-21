@@ -8,7 +8,7 @@ All objectives for Task 14 have been successfully implemented and are ready for 
 
 ## 📋 Overview
 
-This document provides a comprehensive guide to the Email Notification system implemented for Quickhaat using Resend and React Email. The system includes professional email templates, automated sending, and user preference management.
+This document provides a comprehensive guide to the Email Notification system implemented for Snakzo using Resend and React Email. The system includes professional email templates, automated sending, and user preference management.
 
 ---
 
@@ -34,8 +34,8 @@ This document provides a comprehensive guide to the Email Notification system im
 ```typescript
 // Required environment variables
 RESEND_API_KEY=re_xxx...
-EMAIL_FROM=Quickhaat <noreply@quickhaat.com>
-EMAIL_REPLY_TO=support@quickhaat.com
+EMAIL_FROM=Snakzo <noreply@snakzo.com>
+EMAIL_REPLY_TO=support@snakzo.com
 ```
 
 ---
@@ -300,7 +300,7 @@ import { sendPasswordResetEmail } from '@/lib/email-helpers';
 
 // Generate reset token (implement your own logic)
 const resetToken = generateResetToken();
-const resetUrl = `https://quickhaat.com/reset-password?token=${resetToken}`;
+const resetUrl = `https://snakzo.com/reset-password?token=${resetToken}`;
 
 await sendPasswordResetEmail({
   to: user.email,
@@ -427,7 +427,7 @@ const verificationToken = generateVerificationToken();
 await sendEmailVerificationEmail({
   to: newUser.email,
   customerName: newUser.name,
-  verificationUrl: `https://quickhaat.com/verify-email?token=${verificationToken}`,
+  verificationUrl: `https://snakzo.com/verify-email?token=${verificationToken}`,
 });
 ```
 
@@ -441,7 +441,7 @@ const resetToken = generateResetToken();
 await sendPasswordResetEmail({
   to: user.email,
   customerName: user.name,
-  resetUrl: `https://quickhaat.com/reset-password?token=${resetToken}`,
+  resetUrl: `https://snakzo.com/reset-password?token=${resetToken}`,
 });
 ```
 
@@ -507,7 +507,7 @@ for (const cart of abandonedCarts) {
         name: item.product.name,
         price: item.product.price,
       })),
-      cartUrl: 'https://quickhaat.com/cart',
+      cartUrl: 'https://snakzo.com/cart',
     });
   }
 }
@@ -524,8 +524,8 @@ for (const cart of abandonedCarts) {
 RESEND_API_KEY=re_xxxxxxxxxxxxx
 
 # Optional (defaults provided)
-EMAIL_FROM=Quickhaat <noreply@quickhaat.com>
-EMAIL_REPLY_TO=support@quickhaat.com
+EMAIL_FROM=Snakzo <noreply@snakzo.com>
+EMAIL_REPLY_TO=support@snakzo.com
 ```
 
 ### Resend Setup
@@ -801,4 +801,4 @@ Task 14: Email Notifications and Templates is **100% complete**! All email templ
 **Last Updated:** November 10, 2025
 **Task Status:** ✅ COMPLETE
 **Developer:** GitHub Copilot
-**Project:** Quickhaat E-commerce
+**Project:** Snakzo E-commerce

@@ -8,8 +8,8 @@ export const resend = new Resend(process.env.RESEND_API_KEY);
 
 // Email configuration
 export const EMAIL_CONFIG = {
-  from: process.env.EMAIL_FROM || 'Quickhaat <noreply@taxurge.com>',
-  replyTo: process.env.EMAIL_REPLY_TO || 'support@taxurge.com',
+  from: process.env.EMAIL_FROM || 'Snakzo <noreply@snakzo.com>',
+  replyTo: process.env.EMAIL_REPLY_TO || 'support@snakzo.com',
 };
 
 // Email attachment type

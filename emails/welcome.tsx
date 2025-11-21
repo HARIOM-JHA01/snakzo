@@ -9,15 +9,15 @@ interface WelcomeEmailProps {
 
 export function WelcomeEmail({ customerName }: WelcomeEmailProps) {
   return (
-    <EmailLayout preview="Welcome to Quickhaat!">
-      <Heading style={heading}>🎉 Welcome to Quickhaat!</Heading>
+    <EmailLayout preview="Welcome to Snakzo!">
+      <Heading style={heading}>🎉 Welcome to Snakzo!</Heading>
 
       <Text style={text}>Hi {customerName},</Text>
 
       <Text style={text}>
-        Thank you for joining Quickhaat! We're thrilled to have you as part of
-        our community. Get ready to discover amazing products and enjoy a
-        seamless shopping experience.
+        Thank you for joining Snakzo! We're thrilled to have you as part of our
+        community. Get ready to discover amazing products and enjoy a seamless
+        shopping experience.
       </Text>
 
       <Section style={benefitsBox}>
@@ -61,9 +61,7 @@ export function WelcomeEmail({ customerName }: WelcomeEmailProps) {
       </Section>
 
       <Section style={{ textAlign: 'center', marginTop: '32px' }}>
-        <EmailButton href="https://quickhaat.com/shop">
-          Start Shopping
-        </EmailButton>
+        <EmailButton href="https://snakzo.com/shop">Start Shopping</EmailButton>
       </Section>
 
       <Text style={text}>
@@ -74,7 +72,7 @@ export function WelcomeEmail({ customerName }: WelcomeEmailProps) {
       <Text style={text}>
         Happy shopping!
         <br />
-        The Quickhaat Team
+        The Snakzo Team
       </Text>
     </EmailLayout>
   );

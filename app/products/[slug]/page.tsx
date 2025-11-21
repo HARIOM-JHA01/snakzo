@@ -1,22 +1,22 @@
-import { notFound } from "next/navigation";
-import { Metadata } from "next";
-import Link from "next/link";
-import { ChevronRight, Share2, Package, Shield, Truck } from "lucide-react";
-import { prisma } from "@/lib/prisma";
-import ProductGallery from "@/components/product/product-gallery";
-import VariantSelector from "@/components/product/variant-selector";
-import AddToCartButton from "@/components/product/add-to-cart-button";
-import ProductReviews from "@/components/product/product-reviews";
-import RelatedProducts from "@/components/product/related-products";
-import { Separator } from "@/components/ui/separator";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { StructuredData } from "@/components/seo/structured-data";
+import { notFound } from 'next/navigation';
+import { Metadata } from 'next';
+import Link from 'next/link';
+import { ChevronRight, Share2, Package, Shield, Truck } from 'lucide-react';
+import { prisma } from '@/lib/prisma';
+import ProductGallery from '@/components/product/product-gallery';
+import VariantSelector from '@/components/product/variant-selector';
+import AddToCartButton from '@/components/product/add-to-cart-button';
+import ProductReviews from '@/components/product/product-reviews';
+import RelatedProducts from '@/components/product/related-products';
+import { Separator } from '@/components/ui/separator';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import { StructuredData } from '@/components/seo/structured-data';
 import {
   generateProductSchema,
   generateBreadcrumbSchema,
-} from "@/lib/structured-data";
-import { generateProductMetadata } from "@/lib/seo";
+} from '@/lib/structured-data';
+import { generateProductMetadata } from '@/lib/seo';
 
 interface ProductPageProps {
   params: Promise<{
@@ -46,7 +46,7 @@ export async function generateMetadata({
     where: { slug },
     include: {
       images: {
-        orderBy: { position: "asc" },
+        orderBy: { position: 'asc' },
         take: 1,
       },
       brand: true,
@@ -56,7 +56,7 @@ export async function generateMetadata({
 
   if (!product) {
     return {
-      title: "Product Not Found",
+      title: 'Product Not Found',
     };
   }
 
@@ -82,7 +82,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     include: {
       images: {
         orderBy: {
-          position: "asc",
+          position: 'asc',
         },
       },
       variants: true,
@@ -118,7 +118,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           },
         },
         orderBy: {
-          createdAt: "desc",
+          createdAt: 'desc',
         },
         take: 10,
       },
@@ -154,7 +154,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         include: {
           images: {
             orderBy: {
-              position: "asc",
+              position: 'asc',
             },
             take: 1,
           },
@@ -166,7 +166,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
         },
         take: 4,
         orderBy: {
-          createdAt: "desc",
+          createdAt: 'desc',
         },
       })
     : [];
@@ -183,14 +183,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
   // Generate structured data for SEO
   const breadcrumbItems = [
     {
-      name: "Home",
-      url: process.env.NEXT_PUBLIC_SITE_URL || "https://quickhaat.com",
+      name: 'Home',
+      url: process.env.NEXT_PUBLIC_SITE_URL || 'https://snakzo.com',
     },
     {
-      name: "Shop",
-      url: `${
-        process.env.NEXT_PUBLIC_SITE_URL || "https://quickhaat.com"
-      }/shop`,
+      name: 'Shop',
+      url: `${process.env.NEXT_PUBLIC_SITE_URL || 'https://snakzo.com'}/shop`,
     },
   ];
 
@@ -198,7 +196,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     breadcrumbItems.push({
       name: product.category.name,
       url: `${
-        process.env.NEXT_PUBLIC_SITE_URL || "https://quickhaat.com"
+        process.env.NEXT_PUBLIC_SITE_URL || 'https://snakzo.com'
       }/shop?categories=${product.category.slug}`,
     });
   }
@@ -206,7 +204,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
   breadcrumbItems.push({
     name: product.name,
     url: `${
-      process.env.NEXT_PUBLIC_SITE_URL || "https://quickhaat.com"
+      process.env.NEXT_PUBLIC_SITE_URL || 'https://snakzo.com'
     }/products/${product.slug}`,
   });
 
@@ -218,9 +216,9 @@ export default async function ProductPage({ params }: ProductPageProps) {
     brand: product.brand?.name,
     category: product.category?.name,
     sku: product.slug,
-    availability: "InStock",
+    availability: 'InStock',
     url: `${
-      process.env.NEXT_PUBLIC_SITE_URL || "https://quickhaat.com"
+      process.env.NEXT_PUBLIC_SITE_URL || 'https://snakzo.com'
     }/products/${product.slug}`,
   });
 
@@ -301,8 +299,8 @@ export default async function ProductPage({ params }: ProductPageProps) {
                     key={star}
                     className={
                       star <= Math.round(avgRating)
-                        ? "text-yellow-400"
-                        : "text-muted"
+                        ? 'text-yellow-400'
+                        : 'text-muted'
                     }
                   >
                     ★
@@ -428,7 +426,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
             <TabsContent value="description" className="mt-6">
               <div className="prose max-w-none">
                 <p className="text-muted-foreground leading-relaxed">
-                  {product.description || "No detailed description available."}
+                  {product.description || 'No detailed description available.'}
                 </p>
               </div>
             </TabsContent>

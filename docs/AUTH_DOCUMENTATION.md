@@ -168,16 +168,16 @@ export default function ClientPage() {
 
 ```typescript
 // Server Action
-import { signOut } from "@/lib/auth";
+import { signOut } from '@/lib/auth';
 
-await signOut({ redirectTo: "/" });
+await signOut({ redirectTo: '/' });
 ```
 
 ```typescript
 // Client Component
-import { signOut } from "next-auth/react";
+import { signOut } from 'next-auth/react';
 
-await signOut({ callbackUrl: "/" });
+await signOut({ callbackUrl: '/' });
 ```
 
 ### 5. Protect Routes
@@ -192,11 +192,11 @@ Routes are automatically protected by middleware:
 ### 6. Check User Role
 
 ```typescript
-import { auth } from "@/lib/auth";
+import { auth } from '@/lib/auth';
 
 const session = await auth();
 const isAdmin =
-  session?.user?.role === "ADMIN" || session?.user?.role === "SUPER_ADMIN";
+  session?.user?.role === 'ADMIN' || session?.user?.role === 'SUPER_ADMIN';
 
 if (isAdmin) {
   // Show admin content
@@ -274,7 +274,7 @@ Created by seed script:
 
 ```
 Admin Account:
-Email: admin@quickhaat.com
+Email: admin@snakzo.com
 Password: (hashed - update with real password)
 Role: ADMIN
 ```

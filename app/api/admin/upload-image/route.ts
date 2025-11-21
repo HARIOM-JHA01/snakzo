@@ -56,7 +56,7 @@ export async function POST(request: NextRequest) {
     const fileDataUrl = `data:${file.type};base64,${base64}`;
 
     const uploadResult = await cloudinary.uploader.upload(fileDataUrl, {
-      folder: 'quickhaat/products',
+      folder: 'snakzo/products',
       resource_type: 'image',
       // you can add transformations or options here as needed
     });

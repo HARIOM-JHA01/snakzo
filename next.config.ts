@@ -45,7 +45,7 @@ export default withBundle(
 
     org: 'nothing-again',
 
-    project: 'quickhaat',
+    project: 'snakzo',
 
     // Only print logs for uploading source maps in CI
     silent: !process.env.CI,

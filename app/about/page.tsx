@@ -114,9 +114,9 @@ export default function AboutPage() {
               </h1>
               <p className="mt-6 text-lg text-muted-foreground animate-slide-in-left delay-100">
                 We're on a mission to make premium products accessible to
-                everyone. Founded in 2020, Quickhaat has grown from a small
-                startup to a trusted destination for quality goods and
-                exceptional service.
+                everyone. Founded in 2020, Snakzo has grown from a small startup
+                to a trusted destination for quality goods and exceptional
+                service.
               </p>
               <div className="mt-8 flex gap-4 animate-slide-in-left delay-200">
                 <Button
@@ -135,7 +135,7 @@ export default function AboutPage() {
               <div className="aspect-square rounded-3xl overflow-hidden shadow-2xl">
                 <Image
                   src="https://picsum.photos/seed/aboutus/800/800"
-                  alt="About Quickhaat"
+                  alt="About Snakzo"
                   width={800}
                   height={800}
                   className="object-cover"
@@ -261,7 +261,7 @@ export default function AboutPage() {
               👥 Meet The Team
             </Badge>
             <h2 className="text-3xl sm:text-4xl font-bold">
-              The People Behind Quickhaat
+              The People Behind Snakzo
             </h2>
             <p className="mt-3 text-muted-foreground max-w-2xl mx-auto">
               Passionate individuals working together to create the best

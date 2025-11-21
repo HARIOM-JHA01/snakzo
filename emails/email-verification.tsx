@@ -21,7 +21,7 @@ export function EmailVerificationEmail({
       <Text style={text}>Hi {customerName},</Text>
 
       <Text style={text}>
-        Welcome to Quickhaat! To complete your registration and start shopping,
+        Welcome to Snakzo! To complete your registration and start shopping,
         please verify your email address.
       </Text>
 
@@ -43,8 +43,8 @@ export function EmailVerificationEmail({
       <Text style={linkText}>{verificationUrl}</Text>
 
       <Text style={text}>
-        If you didn't create an account with Quickhaat, you can safely ignore
-        this email.
+        If you didn't create an account with Snakzo, you can safely ignore this
+        email.
       </Text>
     </EmailLayout>
   );

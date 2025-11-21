@@ -10,14 +10,14 @@ export function NewsletterSubscriptionEmail({
   customerName,
 }: NewsletterSubscriptionEmailProps) {
   return (
-    <EmailLayout preview="You're subscribed to Quickhaat newsletter!">
+    <EmailLayout preview="You're subscribed to Snakzo newsletter!">
       <Heading style={heading}>📧 Newsletter Subscription Confirmed!</Heading>
 
       <Text style={text}>Hi {customerName},</Text>
 
       <Text style={text}>
-        Thank you for subscribing to the Quickhaat newsletter! You're now part
-        of our exclusive community.
+        Thank you for subscribing to the Snakzo newsletter! You're now part of
+        our exclusive community.
       </Text>
 
       <Section style={benefitsBox}>
@@ -39,7 +39,7 @@ export function NewsletterSubscriptionEmail({
       <Text style={text}>
         Stay tuned for exciting updates!
         <br />
-        The Quickhaat Team
+        The Snakzo Team
       </Text>
     </EmailLayout>
   );

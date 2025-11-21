@@ -182,7 +182,7 @@ The admin credentials depend on your database seed. Check `prisma/seed.ts` for t
 
 Typical defaults:
 
-- **Email:** admin@quickhaat.com
+- **Email:** admin@snakzo.com
 - **Password:** (check seed file)
 
 ### 3. Creating Admin Users
@@ -328,6 +328,6 @@ The admin dashboard is production-ready for managing products and orders. Custom
 ---
 
 **Last Updated:** November 10, 2025  
-**Project:** Quickhaat E-commerce  
+**Project:** Snakzo E-commerce  
 **Task:** 11 - Admin Dashboard  
 **Status:** Core Features Complete (78%)

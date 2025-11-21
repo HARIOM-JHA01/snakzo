@@ -7,8 +7,8 @@ async function seedSettings() {
 
   const defaultSettings = [
     // General Settings
-    { key: 'storeName', value: 'Quickhaat' },
-    { key: 'storeEmail', value: 'support@quickhaat.com' },
+    { key: 'storeName', value: 'Snakzo' },
+    { key: 'storeEmail', value: 'support@snakzo.com' },
     { key: 'storePhone', value: '+1 (555) 123-4567' },
     { key: 'storeAddress', value: '123 Main St, City, State 12345' },
     {

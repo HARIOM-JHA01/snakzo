@@ -1,12 +1,12 @@
-import { Metadata } from "next";
+import { Metadata } from 'next';
 
 const siteConfig = {
-  name: "Quickhaat",
+  name: 'Snakzo',
   description:
-    "Your one-stop shop for quality products at great prices. Browse our wide selection of electronics, fashion, home goods, and more.",
-  url: process.env.NEXT_PUBLIC_SITE_URL || "https://quickhaat.com",
-  ogImage: "/og-image.jpg",
-  twitter: "@quickhaat",
+    'Your one-stop shop for quality products at great prices. Browse our wide selection of electronics, fashion, home goods, and more.',
+  url: process.env.NEXT_PUBLIC_SITE_URL || 'https://snakzo.com',
+  ogImage: '/og-image.jpg',
+  twitter: '@snakzo',
 };
 
 export function generateMetadata({
@@ -14,7 +14,7 @@ export function generateMetadata({
   description,
   image,
   noIndex = false,
-  path = "",
+  path = '',
 }: {
   title?: string;
   description?: string;
@@ -37,7 +37,7 @@ export function generateMetadata({
       },
     }),
     openGraph: {
-      type: "website",
+      type: 'website',
       url,
       title: metaTitle,
       description: metaDescription,
@@ -52,7 +52,7 @@ export function generateMetadata({
       ],
     },
     twitter: {
-      card: "summary_large_image",
+      card: 'summary_large_image',
       site: siteConfig.twitter,
       creator: siteConfig.twitter,
       title: metaTitle,
@@ -70,8 +70,8 @@ export function generateProductMetadata({
   description,
   image,
   price,
-  currency = "INR",
-  availability = "in stock",
+  currency = 'INR',
+  availability = 'in stock',
   slug,
 }: {
   name: string;
@@ -91,7 +91,7 @@ export function generateProductMetadata({
     title: `${title} | ${siteConfig.name}`,
     description: metaDescription,
     openGraph: {
-      type: "website",
+      type: 'website',
       url,
       title,
       description: metaDescription,
@@ -108,7 +108,7 @@ export function generateProductMetadata({
         : undefined,
     },
     twitter: {
-      card: "summary_large_image",
+      card: 'summary_large_image',
       site: siteConfig.twitter,
       creator: siteConfig.twitter,
       title,

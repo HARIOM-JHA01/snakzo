@@ -2,7 +2,7 @@
 
 ## 📋 Overview
 
-This document describes the complete implementation of the checkout process and order management system for Quickhaat e-commerce platform. The system includes multi-step checkout, address management, order creation, order history, and order tracking capabilities.
+This document describes the complete implementation of the checkout process and order management system for Snakzo e-commerce platform. The system includes multi-step checkout, address management, order creation, order history, and order tracking capabilities.
 
 ## ✅ Completed Features
 
@@ -192,7 +192,7 @@ lib/
 
 **Order Number Format:** `QH-YYYYMMDD-XXXXX`
 
-- QH: Quickhaat prefix
+- SZ: Snakzo prefix
 - YYYYMMDD: Date (20250110)
 - XXXXX: Random 5-digit number
 - Uniqueness validated before creation
@@ -497,7 +497,7 @@ await prisma.$transaction(async (tx) => {
   // 2. Update order status
   return await tx.order.update({
     where: { id },
-    data: { status: "CANCELLED" },
+    data: { status: 'CANCELLED' },
   });
 });
 ```

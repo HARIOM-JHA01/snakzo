@@ -78,10 +78,10 @@ export function AdminSidebar() {
       <div className="flex h-16 items-center border-b px-6">
         <Link href="/admin" className="flex items-center gap-2">
           <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-linear-to-br from-orange-500 to-orange-600 text-white font-bold">
-            Q
+            S
           </div>
           <div>
-            <p className="text-sm font-semibold">Quickhaat</p>
+            <p className="text-sm font-semibold">Snakzo</p>
             <p className="text-xs text-gray-500">Admin Panel</p>
           </div>
         </Link>

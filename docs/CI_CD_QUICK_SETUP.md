@@ -5,7 +5,6 @@
 ### 1. Initial GitHub Setup (5 minutes)
 
 1. **Enable GitHub Actions**
-
    - Go to Repository Settings → Actions → General
    - Enable "Allow all actions and reusable workflows"
    - Enable "Read and write permissions" for workflows
@@ -31,7 +30,7 @@ npm i -g vercel
 vercel login
 
 # Link your project
-cd /path/to/quickhaat
+cd /path/to/snakzo
 vercel link
 
 # Get your credentials

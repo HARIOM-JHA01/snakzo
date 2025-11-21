@@ -1,4 +1,4 @@
-import Link from "next/link";
+import Link from 'next/link';
 import {
   Card,
   CardContent,
@@ -6,9 +6,9 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { ShoppingBag, Mail } from "lucide-react";
+} from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { ShoppingBag, Mail } from 'lucide-react';
 
 export default function VerifyEmailPage() {
   return (
@@ -19,7 +19,7 @@ export default function VerifyEmailPage() {
             <div className="flex items-center gap-2">
               <ShoppingBag className="h-8 w-8 text-purple-600" />
               <span className="text-2xl font-bold bg-linear-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Quickhaat
+                Snakzo
               </span>
             </div>
           </div>

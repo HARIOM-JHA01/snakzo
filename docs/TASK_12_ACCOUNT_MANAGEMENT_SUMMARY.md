@@ -8,7 +8,7 @@ All objectives for Task 12 have been successfully implemented and are ready for 
 
 ## 📋 Overview
 
-This document provides a comprehensive guide to the User Account and Profile Management system implemented for Quickhaat. The system allows users to manage their profile, addresses, orders, wishlist, security settings, and preferences.
+This document provides a comprehensive guide to the User Account and Profile Management system implemented for Snakzo. The system allows users to manage their profile, addresses, orders, wishlist, security settings, and preferences.
 
 ---
 
@@ -630,4 +630,4 @@ Task 12: User Account and Profile Management is **100% complete**! All objective
 **Last Updated:** November 10, 2025
 **Task Status:** ✅ COMPLETE
 **Developer:** GitHub Copilot
-**Project:** Quickhaat E-commerce
+**Project:** Snakzo E-commerce

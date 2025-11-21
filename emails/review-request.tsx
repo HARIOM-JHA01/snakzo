@@ -53,7 +53,7 @@ export function ReviewRequestEmail({
       <Text style={text}>
         Thank you for being a valued customer!
         <br />
-        The Quickhaat Team
+        The Snakzo Team
       </Text>
     </EmailLayout>
   );

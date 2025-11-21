@@ -27,10 +27,10 @@ export function EmailLayout({ preview, children }: EmailLayoutProps) {
           {/* Header */}
           <Section style={header}>
             <Img
-              src="https://quickhaat.com/logo.png"
+              src="https://snakzo.com/logo.png"
               width="120"
               height="40"
-              alt="Quickhaat"
+              alt="Snakzo"
               style={logo}
             />
           </Section>
@@ -41,18 +41,18 @@ export function EmailLayout({ preview, children }: EmailLayoutProps) {
           {/* Footer */}
           <Section style={footer}>
             <Text style={footerText}>
-              © {new Date().getFullYear()} Quickhaat. All rights reserved.
+              © {new Date().getFullYear()} Snakzo. All rights reserved.
             </Text>
             <Text style={footerText}>
-              <Link href="https://quickhaat.com" style={footerLink}>
+              <Link href="https://snakzo.com" style={footerLink}>
                 Visit our store
               </Link>
               {' · '}
-              <Link href="https://quickhaat.com/account" style={footerLink}>
+              <Link href="https://snakzo.com/account" style={footerLink}>
                 My Account
               </Link>
               {' · '}
-              <Link href="https://quickhaat.com/help" style={footerLink}>
+              <Link href="https://snakzo.com/help" style={footerLink}>
                 Help Center
               </Link>
             </Text>

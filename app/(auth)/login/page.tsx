@@ -70,7 +70,7 @@ export default function LoginPage() {
             <div className="flex items-center gap-2">
               <ShoppingBag className="h-8 w-8 text-purple-600" />
               <span className="text-2xl font-bold bg-linear-to-r from-purple-600 to-pink-600 bg-clip-text text-transparent">
-                Quickhaat
+                Snakzo
               </span>
             </div>
           </div>

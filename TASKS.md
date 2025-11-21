@@ -1,4 +1,4 @@
-# Quickhaat E-commerce - Complete Task List
+# Snakzo E-commerce - Complete Task List
 
 ## 🚀 High Priority Tasks
 
@@ -871,5 +871,5 @@ bun add next-intl
 ---
 
 **Last Updated:** November 10, 2025
-**Project:** Quickhaat E-commerce
-**Repository:** HARIOM-JHA01/quickhaat
+**Project:** Snakzo E-commerce
+**Repository:** HARIOM-JHA01/snakzo

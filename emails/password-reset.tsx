@@ -15,14 +15,14 @@ export function PasswordResetEmail({
   expiresIn,
 }: PasswordResetEmailProps) {
   return (
-    <EmailLayout preview="Reset your Quickhaat password">
+    <EmailLayout preview="Reset your Snakzo password">
       <Heading style={heading}>🔒 Reset Your Password</Heading>
 
       <Text style={text}>Hi {customerName},</Text>
 
       <Text style={text}>
-        We received a request to reset your password for your Quickhaat account.
-        If you didn't make this request, you can safely ignore this email.
+        We received a request to reset your password for your Snakzo account. If
+        you didn't make this request, you can safely ignore this email.
       </Text>
 
       <Text style={text}>To reset your password, click the button below:</Text>

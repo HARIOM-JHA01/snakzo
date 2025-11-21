@@ -362,8 +362,8 @@ Ensure the following are set in production:
 RESEND_API_KEY=re_xxxxxxxxxxxxx
 
 # Optional (use defaults if not set)
-EMAIL_FROM=Quickhaat <noreply@quickhaat.com>
-EMAIL_REPLY_TO=support@quickhaat.com
+EMAIL_FROM=Snakzo <noreply@snakzo.com>
+EMAIL_REPLY_TO=support@snakzo.com
 NEXTAUTH_URL=https://your-domain.com
 ```
 
@@ -480,4 +480,4 @@ Every email type now has:
 
 **Last Updated:** November 10, 2025
 **Completed By:** GitHub Copilot
-**Project:** Quickhaat E-commerce
+**Project:** Snakzo E-commerce

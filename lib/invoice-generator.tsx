@@ -198,11 +198,11 @@ export const InvoiceDocument: React.FC<{ data: InvoiceData }> = ({ data }) => (
     <Page size="A4" style={styles.page}>
       {/* Header with Company Logo/Name */}
       <View style={styles.header}>
-        <Text style={styles.logo}>QUICKHAAT</Text>
+        <Text style={styles.logo}>SNAKZO</Text>
         <Text style={styles.companyInfo}>
           Your One-Stop Shop for Quality Products
         </Text>
-        <Text style={styles.companyInfo}>Email: support@quickhaat.com</Text>
+        <Text style={styles.companyInfo}>Email: support@snakzo.com</Text>
         <Text style={styles.companyInfo}>Phone: +1 (555) 123-4567</Text>
       </View>
 
@@ -297,7 +297,7 @@ export const InvoiceDocument: React.FC<{ data: InvoiceData }> = ({ data }) => (
       <View style={styles.footer}>
         <Text>Thank you for your business!</Text>
         <Text>
-          For questions about this invoice, please contact support@quickhaat.com
+          For questions about this invoice, please contact support@snakzo.com
         </Text>
       </View>
     </Page>

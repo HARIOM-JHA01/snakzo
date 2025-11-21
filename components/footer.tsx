@@ -5,7 +5,7 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           <div>
             <h3 className="font-bold text-xl mb-4 bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-              Quickhaat
+              Snakzo
             </h3>
             <p className="text-sm text-muted-foreground">
               Your trusted destination for premium products and exceptional
@@ -67,7 +67,7 @@ export default function Footer() {
 
         <div className="border-t pt-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} Quickhaat. All rights reserved.
+            © {new Date().getFullYear()} Snakzo. All rights reserved.
           </div>
           <div className="flex gap-4">
             <div className="w-10 h-10 rounded-full bg-linear-to-br from-blue-500 to-blue-600 flex items-center justify-center text-white cursor-pointer hover:shadow-lg transition-all duration-300">

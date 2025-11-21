@@ -1,10 +1,10 @@
-import Link from "next/link";
-import { Button } from "@/components/ui/button";
-import { auth } from "@/lib/auth";
-import { UserMenu } from "./auth/user-menu";
-import { SessionProvider } from "next-auth/react";
-import CartButton from "./cart/cart-button";
-import { SearchBar } from "@/components/search/search-bar";
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
+import { auth } from '@/lib/auth';
+import { UserMenu } from './auth/user-menu';
+import { SessionProvider } from 'next-auth/react';
+import CartButton from './cart/cart-button';
+import { SearchBar } from '@/components/search/search-bar';
 
 export default async function Navbar() {
   const session = await auth();
@@ -13,10 +13,10 @@ export default async function Navbar() {
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-6 px-6 py-4 lg:px-8">
         <Link href="/" className="flex items-center gap-2 group">
           <div className="w-10 h-10 rounded-xl bg-linear-to-br from-indigo-600 to-purple-600 flex items-center justify-center text-white font-bold shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
-            Q
+            S
           </div>
           <span className="text-xl font-bold bg-linear-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-            Quickhaat
+            Snakzo
           </span>
         </Link>
 
